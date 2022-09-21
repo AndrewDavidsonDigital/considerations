@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 // reactive state
 let startTime = ref(0)
@@ -79,23 +79,36 @@ function resolveLocaleDay(dayName, locale){
       return 'N/A'
   }
 }
-
+onMounted(() => {
+  justIterateLoop();
+});
 </script>
 
 <template>
-  <section style="display: flex;">
-  <button @click="justIterateLoop">Loop only</button>
-  <button @click="translateEntireWeek('en-AU')">Start-AU</button>
-  <button @click="translateEntireWeek('JA')">Start-JA</button>
-  <button @click="translateEntireWeekCustom">Start-custom</button>
-  <section style="background: pink; width: 100px"><input v-model="custom" type='text' style="width: 100%"></section></section>
-  <section>{{startTime}}</section>
-  <section>{{endTime}}</section>
-  <section>delta: {{endTime - startTime}}ms</section>
-  <hr>
-  <section>
-    <article v-for="(dayShort, index) in days" :key="index">
-      <h3>{{dayShort}}</h3>
-    </article>
+  <section class="tw-flex tw-gap-x-2 tw-text-black">
+    <button
+      class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
+      @click="justIterateLoop">Loop only</button>
+    <button 
+      class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
+      @click="translateEntireWeek('en-AU')">Start-AU</button>
+    <button 
+      class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
+      @click="translateEntireWeek('JA')">Start-JA</button>
+    <button 
+      class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
+      @click="translateEntireWeekCustom">Start-custom</button>
+    <div style="background: pink; width: 100px"><input v-model="custom" type='text' style="width: 100%"></div>
+  </section>
+  <section class="tw-w-1/2 tw-flex tw-flex-col">
+    <div class="tw-w-64 tw-inline-flex tw-justify-between"><span>Start Timestamp:</span><span>{{startTime}}</span></div>
+    <div class="tw-w-64 tw-inline-flex tw-justify-between"><span>End Timestamp:</span><span>{{endTime}}</span></div>
+    <div class="tw-w-64 tw-inline-flex tw-justify-between"><span>Delta:</span><span>{{endTime - startTime}}</span></div>
+    <hr>
+    <div>
+      <article v-for="(dayShort, index) in days" :key="index">
+        <h3>{{dayShort}}</h3>
+      </article>
+    </div>
   </section>
 </template>

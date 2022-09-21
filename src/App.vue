@@ -4,8 +4,10 @@
 </script>
 
 <template>
-  <Navigation />
-  <RouterView />
+  <section class="tw-flex tw-flex-col tw-justify-between tw-items-center">
+    <Navigation />
+    <RouterView />
+  </section>
 </template>
 
 <style scoped>
