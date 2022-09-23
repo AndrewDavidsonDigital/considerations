@@ -16,7 +16,13 @@ const router = createRouter({
       // this generates a separate chunk (DateTimeTlView.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/DateTimeTlView.vue')
-    }
+    },
+    {
+      path: '/progressive-styled-text',
+      name: 'progressive-styled-text',
+      component: () => import('../views/ProgressivlyStyledText.vue')
+    },
+    
   ]
 })
 
