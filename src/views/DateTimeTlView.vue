@@ -85,7 +85,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="tw-flex tw-gap-x-2 tw-text-black">
+  <section class="tw-text-white tw-text-left tw-w-1/2 tw-pb-5">
+    <h2 class="tw-text-xl">Issue: </h2>
+    <p class="tw-indent-5">Verification / Dissproval of claim: <em>Native JS Date object intl is <strong>SLOW</strong></em></p>
+    <h2 class="tw-text-xl">Details: </h2>
+    <p class="tw-indent-5">Mate refused to use the inate embedded translations from JS Date object, for unclear reasons and claimed its was just obsurdly slow when asked for reasoning</p>
+    <h2 class="tw-text-xl">Logic: </h2>
+    <p class="tw-indent-5">Code takes a list of String represenations of `Day of the week`, i.e.: Monday, and needs to resolve the intl, short name for these, relative to a given locale.<pre  class="tw-indent-0 tw-p-3 tw-rounded-md tw-bg-orange-300 tw-text-black tw-italic"><code lang="js">DAYNAME_CONSTS.friday.toLocaleString(locale, { 'weekday': 'short' })</code></pre> From this we can see that resolving results for 8 entities takes between 0 and 1ms, this is clearly not slow. As Just iterating over the loop can be seen to take between 0 and 1ms, but on average closer to 0</p>
+  </section>
+  <section class="tw-flex tw-gap-x-2 tw-text-black tw-pb-5">
     <button
       class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
       @click="justIterateLoop">Loop only</button>
@@ -97,7 +105,7 @@ onMounted(() => {
       @click="translateEntireWeek('JA')">Start-JA</button>
     <button 
       class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
-      @click="translateEntireWeekCustom">Start-custom</button>
+      @click="translateEntireWeekCustom">Start-custom</button> 
     <div style="background: pink; width: 100px"><input v-model="custom" type='text' style="width: 100%"></div>
   </section>
   <section class="tw-w-1/2 tw-flex tw-flex-col">
