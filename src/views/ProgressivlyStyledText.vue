@@ -180,6 +180,9 @@ import {
   window.addEventListener("resize", () => resolveTextSizes());  
   onUnmounted(() => {
     window.removeEventListener("resize", () => resolveTextSizes());
+    if(tickerId.value){
+      clearInterval(tickerId.value)
+    }
   }),
   onMounted(() => {
     resolveTextSizes()
@@ -197,7 +200,7 @@ import {
       isLoadedFull.value = false
       observer.value.observe(textModule.value);
       scrollConfig.value.startTimestamp = Date.now()
-      setTimeout(() => isLoadedFull.value = true, 1000)
+      setTimeout(() => isLoadedFull.value = true, scrollConfig.value.interval)
     }else{
       observer.value.unobserve(textModule.value)
       scrollConfig.value.startTimestamp = null
@@ -253,12 +256,21 @@ import {
   
 <template>
   <section class="tw-text-white tw-text-left tw-w-1/2 tw-pb-5">
-    <h2 class="tw-text-xl">Issue: </h2>
+    <h2 class="tw-text-xl tw-text-orange-300">Issue: </h2>
     <p class="tw-indent-5">Need for a way to progressivly style text</p>
-    <h2 class="tw-text-xl">Details: </h2>
+    <h2 class="tw-text-xl tw-text-orange-300">Details: </h2>
     <p class="tw-indent-5">Need to find a way to progressivly style text based on a specific progress, i.e. time or scroll position</p>
-    <h2 class="tw-text-xl">Logic: </h2>
-    <p class="tw-indent-5">TBD</p>
+    <h2 class="tw-text-xl tw-text-orange-300">Logic: </h2>
+    <h3 class="tw-text-lg tw-text-orange-300">Generic: </h3>
+    <p class="tw-indent-5">Define a template ref for the paragraph to style, prior to that in the template add a heirachily older sibling `element` that is positioned absolutely so that it sits underneath the template; This will house our `highlight` colour.</p>
+    <p class="tw-indent-5">Once loaded, and on aspect changes, read the computed sizing values and line-heighs. From this we can calculate the number, and size of all the lines within the paragraph.</p>
+    <p class="tw-indent-5">From this, our template iterates over our computed (number of lines), and we now have an indetically spaced underlying layer, with a `width` of 0% as we don't want to colour it yet. </p>
+    <p class="tw-indent-5">Using the mix-blend-multiply we on the paragraph we can colour the text based on the background of the underlying layers.</p>
+    <p class="tw-indent-5">For both Timed and Scrolled, per tick of itteration, calculate the percentages per row of scaling on each line, they will fall into one of 3 categories; Filled, Empty, and a single line Partially Filled</p>
+    <h3 class="tw-text-lg tw-text-orange-300">Timed: </h3>
+    <p class="tw-indent-5">For timed; we define a duration and a tick-interval, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row</p>
+    <h3 class="tw-text-lg tw-text-orange-300">Scrolled: </h3>
+    <p class="tw-indent-5">For Scrolled we define an Intersection Observer, around the center of the viewport, and a tick-interval. When the Intersection Observer is triggered either start or stop the ticker depending on if we entered or left the intersection, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row, based on the average percentage of both the Lower intersection with the bottom of the element and the Upper interseciont with the top of the element</p>
   </section>
   <section class="tw-flex tw-gap-x-2 tw-text-black tw-pb-5">
     <button
@@ -276,7 +288,7 @@ import {
         }" 
       @click="timeToggled = true; scrollToggled = false">Timer Toggled</button>
   </section>
-  <section class="tw-h-[55vh] tw-hidden md:tw-flex tw-flex-col">
+  <section class="tw-min-h-[40vh] tw-hidden md:tw-flex tw-flex-col">
     spacer to enable scroll for scroll toggling
   </section>  
   <section class="md:tw-w-[50vw] tw-aspect-square tw-flex tw-flex-col tw-mix-blend-lighten">
@@ -304,7 +316,7 @@ import {
 Duo Reges: constructio interrete. Est, ut dicis, inquam. Quid enim me prohiberet Epicureum esse, si probarem, quae ille diceret? Quae quo sunt excelsiores, eo dant clariora indicia naturae. Ita cum ea volunt retinere, quae superiori sententiae conveniunt, in Aristonem incidunt; An est aliquid per se ipsum flagitiosum, etiamsi nulla comitetur infamia? At ille pellit, qui permulcet sensum voluptate. Restatis igitur vos; Tum Quintus: Est plane, Piso, ut dicis, inquit. Mihi, inquam, qui te id ipsum rogavi? 
 Audax negotium, dicerem impudens, nisi hoc institutum postea translatum ad philosophos nostros esset. Profectus in exilium Tubulus statim nec respondere ausus; Quis Aristidem non mortuum diligit? Illa argumenta propria videamus, cur omnia sint paria peccata. Summus dolor plures dies manere non potest?</p>
   </section>
-  <section class="tw-h-[55vh] tw-flex tw-flex-col">
+  <section class="tw-min-h-[40vh] tw-flex tw-flex-col">
     spacer to enable scroll for scroll toggling
   </section>  
 </template>
