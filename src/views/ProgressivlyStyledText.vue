@@ -8,6 +8,7 @@ import {
 } from 'vue'
   
   // reactive state
+  let fps = ref(60);
   let observer = ref({});
   let isLoadedFull = ref(false)
   let refreshKey = ref(null)
@@ -30,7 +31,6 @@ import {
   let timeConfig = ref({
     startTimestamp: null,
     duration: 10000,
-    interval: 50,
   })
 
   let scrollConfig = ref({
@@ -38,7 +38,6 @@ import {
     top: 0,
     bottom: 0,
     startTimestamp: null,
-    interval: 50,
   })
 
   function resolveTextSizes(){
@@ -128,6 +127,8 @@ import {
     }
     return retval
   })
+  
+  const interval = computed(() => (1000 / fps.value).toFixed(2));
 
   const textHeightNumber = computed(() => Number(textHeight.value.substring(0, textHeight.value.length -2)))
   const textLineHeightNumber = computed(() => Number(textLineHeight.value.substring(0, textLineHeight.value.length -2)))
@@ -144,7 +145,7 @@ import {
     if (isLoadedFull.value){
       if (entries[0].isIntersecting){
         scrollConfig.value.startTimestamp = Date.now()
-        tickerId.value = setInterval(() => ticker(), scrollConfig.value.interval)
+        tickerId.value = setInterval(() => ticker(), interval.value)
       }else{
         scrollConfig.value.startTimestamp = null
         clearTickerInterval()
@@ -200,7 +201,7 @@ import {
       isLoadedFull.value = false
       observer.value.observe(textModule.value);
       scrollConfig.value.startTimestamp = Date.now()
-      setTimeout(() => isLoadedFull.value = true, scrollConfig.value.interval)
+      setTimeout(() => isLoadedFull.value = true, interval.value)
     }else{
       observer.value.unobserve(textModule.value)
       scrollConfig.value.startTimestamp = null
@@ -215,7 +216,7 @@ import {
     if (newVal === true){
       clearTickerInterval()
       timeConfig.value.startTimestamp = Date.now()
-      tickerId.value = setInterval(() => ticker(), timeConfig.value.interval)
+      tickerId.value = setInterval(() => ticker(), interval.value)
     }else{
       timeConfig.value.startTimestamp = null
     }
@@ -272,21 +273,27 @@ import {
     <h3 class="tw-text-lg tw-text-orange-300">Scrolled: </h3>
     <p class="tw-indent-5">For Scrolled we define an Intersection Observer, around the center of the viewport, and a tick-interval. When the Intersection Observer is triggered either start or stop the ticker depending on if we entered or left the intersection, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row, based on the average percentage of both the Lower intersection with the bottom of the element and the Upper interseciont with the top of the element</p>
   </section>
-  <section class="tw-flex tw-gap-x-2 tw-text-black tw-pb-5">
-    <button
-      class="tw-px-2 tw-bg-slate-400 tw-rounded-md tw-border-2" 
-      :class="{
-        'tw-border-red-400': scrollToggled,
-        'tw-border-slate-400': !scrollToggled,
-        }" 
-      @click="timeToggled = false; scrollToggled = true">Scroll Toggled</button>
-    <button 
-      class="tw-px-2 tw-bg-slate-400  tw-rounded-md tw-border-2"
-      :class="{
-        'tw-border-red-400': timeToggled,
-        'tw-border-slate-400': !timeToggled,
-        }" 
-      @click="timeToggled = true; scrollToggled = false">Timer Toggled</button>
+  <section class="tw-flex tw-flex-col tw-gap-y-2 tw-text-black tw-pb-5">
+    <article class="tw-flex tw-gap-x-2 tw-justify-around">
+      <button
+        class="tw-px-2 tw-bg-slate-400 tw-rounded-md tw-border-2" 
+        :class="{
+          'tw-border-red-400': scrollToggled,
+          'tw-border-slate-400': !scrollToggled,
+          }" 
+        @click="timeToggled = false; scrollToggled = true">Scroll Toggled</button>
+      <button 
+        class="tw-px-2 tw-bg-slate-400  tw-rounded-md tw-border-2"
+        :class="{
+          'tw-border-red-400': timeToggled,
+          'tw-border-slate-400': !timeToggled,
+          }" 
+        @click="timeToggled = true; scrollToggled = false">Timer Toggled</button>
+    </article>
+    <article class="tw-flex tw-gap-x-2 tw-justify-around">
+      <div class="tw-w-1/3 tw-inline-flex tw-text-white">FPS: <input v-model="fps" type='text' class="tw-ml-2 tw-pl-2 tw-text-black" style="width: 100%"></div>
+      <div class="tw-w-1/3 tw-inline-flex tw-text-white">Interval: <span class="tw-ml-2 tw-pl-2 tw-text-black tw-min-w-[4rem] tw-bg-white">{{interval}}</span></div>
+    </article>
   </section>
   <section class="tw-min-h-[40vh] tw-hidden md:tw-flex tw-flex-col">
     spacer to enable scroll for scroll toggling
