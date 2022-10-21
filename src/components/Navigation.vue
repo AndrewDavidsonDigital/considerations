@@ -3,5 +3,6 @@
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/date-time-translations">Date Time Translations</RouterLink>
     <RouterLink to="/progressive-styled-text">Dynamic Text Styling</RouterLink>
+    <RouterLink to="/saving-canvas">Saving from a Canvas</RouterLink>
   </nav>
 </template>

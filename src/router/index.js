@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'progressive-styled-text',
       component: () => import('../views/ProgressivlyStyledText.vue')
     },
+    {
+      path: '/saving-canvas',
+      name: 'saving-canvas',
+      component: () => import('../views/SavingCanvas.vue')
+    },
     
   ]
 })
