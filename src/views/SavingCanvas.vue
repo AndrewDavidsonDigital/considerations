@@ -3,31 +3,59 @@ import html2canvas from 'html2canvas';
 import { 
   ref,
   onMounted,
+  onUnmounted,
+  computed,
 } from 'vue'
+import { useDeviceStore } from "@/stores/device.js"
+import { dataURItoBlob } from "@/util/image.js"
   
   // reactive state
+  let button_1 = ref(null)
+  let button_2 = ref(null)
   let linkRef = ref(null)
   let canvasRef = ref(null)
   let canvasDomDestinationRef = ref(null)
   let htmlToCanvasRef = ref(null)
-  let supportsClipboard = ref(false)
+  let supportsClipboardAsync = ref(false)
+  let supportsClipboardSync = ref(false)
+  const deviceStore = useDeviceStore()
 
-  supportsClipboard.value = !!(navigator.clipboard);
 
+  supportsClipboardAsync.value = !!(navigator.clipboard);
+  supportsClipboardSync.value = !!(new ClipboardEvent('copy'));
 
-  function copyToClipboard(useDynamic = false){
+  
+  const canSuppportClipboard = computed(() => {
+    return supportsClipboardAsync.value || supportsClipboardSync.value
+  })
+
+  function copyToClipboard(useDynamic){
+    if (deviceStore.isIos){
+      return
+    }
     if (useDynamic){
-      canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1].toBlob((blob) => dumpToClipboard(blob));
+      canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1].toBlob((blob) => dumpToClipboardAsync(blob));
     }else{
-      canvasRef.value.toBlob((blob) => dumpToClipboard(blob));
+      canvasRef.value.toBlob((blob) => dumpToClipboardAsync(blob));
     }
   }
 
-  function dumpToClipboard(blob){
-    const item = new ClipboardItem({ "image/png": blob });
-    navigator.clipboard.write([item]);
+  async function copyFromClipboardIos(useDynamic){
+    let dataUrl;
+    if (useDynamic){
+      dataUrl = canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1].toDataURL();
+    }else{
+      dataUrl = canvasRef.value.toDataURL();
+    }
+    const blobby = dataURItoBlob(dataUrl);
+    await dumpToClipboardAsync(blobby);
   }
 
+  async function dumpToClipboardAsync(blob){
+    const data = [new ClipboardItem({ [blob.type]: blob })];
+    await navigator.clipboard.write(data);
+  }
+  
   function saveAndDownload(useDynamic = false){
     let dataUrl;
     if (useDynamic){
@@ -49,6 +77,7 @@ import {
     html2canvas(document.querySelector("#htmlToCanvasRef")).then(canvas => {
       canvasDomDestinationRef.value.appendChild(canvas)
     });
+
   });
 
 </script>
@@ -63,20 +92,38 @@ import {
     <h3 class="tw-text-lg tw-text-orange-300">Clipboard: </h3>
     <p class="tw-indent-5">Turn the canvas element into a BLOB asset and then turn said blob asset into a ClipboardItem</p>
     <h3 class="tw-text-lg tw-text-orange-300">Download: </h3>
-    <p class="tw-indent-5">Turn the canvas element into a DataURL (`data:image/png;base64,iVBORw0KGgoAAAANSUhEU...`) and then push said DataURL as the HREF of an anchor, click anchor, then clear anchor HREF</p>
+    <p class="tw-indent-5 tw-word-break">Turn the canvas element into a DataURL (`data:image/png;base64,iVBORw0KGgoAAAANSUhEU...`) and then push said DataURL as the HREF of an anchor, click anchor, then clear anchor HREF</p>
+  </section>
+  <section class="tw-flex tw-flex-col tw-gap-y-2 tw-text-white tw-pb-5">
+    <article class="tw-flex tw-gap-x-2 tw-justify-around">
+      <h2 class="tw-text-xl tw-text-orange-300">Is IOS?: </h2>
+      <p class="tw-indent-5">{{deviceStore.isIos}}</p>      
+    </article>
+    <article class="tw-flex tw-gap-x-2 tw-justify-around">
+      <h2 class="tw-text-xl tw-text-orange-300">Is Clipboard (ASYNC) Supported: </h2>
+      <p class="tw-indent-5">{{supportsClipboardAsync}}</p>      
+    </article>
+    <article class="tw-flex tw-gap-x-2 tw-justify-around">
+      <h2 class="tw-text-xl tw-text-orange-300">Is Clipboard (SYNC) Supported: </h2>
+      <p class="tw-indent-5">{{supportsClipboardSync}}</p>      
+    </article>
   </section>
   <section class="tw-flex tw-flex-col tw-gap-y-2 tw-text-black tw-pb-5">
     <article class="tw-flex tw-gap-x-2 tw-justify-around">
       <button
-        v-if="supportsClipboard"
+        v-if="canSuppportClipboard"
+        ref="button_1"
         class="tw-px-2 tw-bg-slate-400 tw-rounded-md tw-border-2 tw-border-orange-400" 
         type="button"
-        @click="copyToClipboard(false)">Clipbaord - Static</button>
+        @click="copyToClipboard(false)"
+        @touchend="copyFromClipboardIos(false)">Clipbaord - Static</button>
       <button
-        v-if="supportsClipboard"
+        v-if="canSuppportClipboard"
+        ref="button_2"
         class="tw-px-2 tw-bg-slate-400 tw-rounded-md tw-border-2 tw-border-orange-400" 
         type="button"
-        @click="copyToClipboard(true)">Clipbaord - Converted</button>
+        @click="copyToClipboard(true)"
+        @touchend="copyFromClipboardIos(true)">Clipbaord - Converted</button>
       <button 
         class="tw-px-2 tw-bg-slate-400 tw-rounded-md tw-border-2 tw-border-orange-400" 
         type="button"
@@ -90,7 +137,7 @@ import {
   </section>  
   <section class="md:tw-w-[50vw] tw-aspect-square tw-flex tw-flex-col tw-mix-blend-lighten">
     <article class="tw-flex tw-justify-around tw-items-center">
-    Here be canvases
+      Here be canvases
     </article>
     <article class="tw-flex tw-justify-around tw-items-center">
       <div>
@@ -105,3 +152,9 @@ import {
     </article>  
   </section>
 </template>
+
+<style scoped scss>
+  .tw-word-break{
+    word-break: break-word;
+  }
+</style>
