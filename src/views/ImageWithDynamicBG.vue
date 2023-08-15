@@ -1,11 +1,8 @@
 <script setup>
-import { onMounted,  ref } from 'vue'
+import { ref } from 'vue'
 import { FastAverageColor } from 'fast-average-color';
 
-
-
 // reactive state
-let loaded = ref(false)
 let imageToggle = ref(true)
 
 
@@ -23,7 +20,7 @@ function changeImage(){
     .then(color => {
         document.getElementById('bgLeft').style.backgroundColor = `${color.hex}`
         document.getElementById('bgRight').style.backgroundColor = `${color.hex}`
-        document.documentElement.style.setProperty('--my-variable-name', color.rgba);
+        document.documentElement.style.setProperty('--colour-bg-bleed', color.rgba);
         // console.log(color)
         // grab darkness and apply tw-mix-blend-color only if color.isDark === true
     })
@@ -31,11 +28,6 @@ function changeImage(){
         console.log(e);
     });
 }
-
-onMounted(() => {
-  loaded.value = true
-  changeImage()
-});
 </script>
 
 <template>
@@ -75,11 +67,8 @@ onMounted(() => {
     grid-area: stack;
   }
   .tw-gradients{
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--my-variable-name) 20%, var(--my-variable-name) 80%, transparent 100%);
-  }
-  .temp {
-    background: linear-gradient(to right, transparent 0%, var(--bg-var) 5%, var(--bg-var) 95%, transparent 100%);
-    --bg-var: var(--bg-var-rose-500);
+    mask-image: linear-gradient(to right, transparent 0%, var(--colour-bg-bleed) 20%, var(--colour-bg-bleed) 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--colour-bg-bleed) 20%, var(--colour-bg-bleed) 80%, transparent 100%);
   }
 </style>
 
