@@ -228,6 +228,7 @@ import {
   function ticker(){
     const now = Date.now()
     let endDuration;
+    
     if(timeToggled.value){
       endDuration = timeConfig.value.startTimestamp + timeConfig.value.duration
     }

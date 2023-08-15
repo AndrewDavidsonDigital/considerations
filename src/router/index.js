@@ -10,6 +10,11 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/dialog-html',
+      name: 'dialog-html',
+      component: () => import('../views/DialogHtml.vue')
+    },
+    {
       path: '/date-time-translations',
       name: 'date-time-translations',
       // route level code-splitting
@@ -23,12 +28,26 @@ const router = createRouter({
       component: () => import('../views/ProgressivlyStyledText.vue')
     },
     {
+      path: '/paralax-image',
+      name: 'paralax-image',
+      component: () => import('../views/ParalaxImage.vue')
+    },
+    {
       path: '/saving-canvas',
       name: 'saving-canvas',
       component: () => import('../views/SavingCanvas.vue')
     },
-    
+    {
+      path: '/dynamic-bg',
+      name: 'dynamic-bg',
+      component: () => import('../views/ImageWithDynamicBG.vue')
+    },
+    {
+      path: '/border-images',
+      name: 'border-images',
+      component: () => import('../views/BorderImages.vue')
+    },
   ]
-})
+});
 
-export default router
+export default router;

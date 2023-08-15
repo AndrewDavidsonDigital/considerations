@@ -12,6 +12,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "fast-average-color": "^9.3.0",
     "html2canvas": "^1.4.1",
     "pinia": "^2.0.21",
     "vue": "^3.2.38",
@@ -19,8 +20,8 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
-    "@vitejs/plugin-vue": "^3.0.3",
     "@vitejs/plugin-basic-ssl": "^0.1.2",
+    "@vitejs/plugin-vue": "^3.0.3",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/test-utils": "^2.0.2",
     "autoprefixer": "^10.4.12",

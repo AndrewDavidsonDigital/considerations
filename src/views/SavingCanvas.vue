@@ -77,7 +77,6 @@ import { dataURItoBlob } from "@/util/image.js"
     html2canvas(document.querySelector("#htmlToCanvasRef")).then(canvas => {
       canvasDomDestinationRef.value.appendChild(canvas)
     });
-
   });
 
 </script>
@@ -93,6 +92,8 @@ import { dataURItoBlob } from "@/util/image.js"
     <p class="tw-indent-5">Turn the canvas element into a BLOB asset and then turn said blob asset into a ClipboardItem</p>
     <h3 class="tw-text-lg tw-text-orange-300">Download: </h3>
     <p class="tw-indent-5 tw-word-break">Turn the canvas element into a DataURL (`data:image/png;base64,iVBORw0KGgoAAAANSUhEU...`) and then push said DataURL as the HREF of an anchor, click anchor, then clear anchor HREF</p>
+    <br>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tw-w-4 tw-h-4 tw-text-lime-500"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
   </section>
   <section class="tw-flex tw-flex-col tw-gap-y-2 tw-text-white tw-pb-5">
     <article class="tw-flex tw-gap-x-2 tw-justify-around">
@@ -100,11 +101,11 @@ import { dataURItoBlob } from "@/util/image.js"
       <p class="tw-indent-5">{{deviceStore.isIos}}</p>      
     </article>
     <article class="tw-flex tw-gap-x-2 tw-justify-around">
-      <h2 class="tw-text-xl tw-text-orange-300">Is Clipboard (ASYNC) Supported: </h2>
+      <h2 class="tw-text-xl tw-text-orange-300">Is Clipboard (Write) Supported: </h2>
       <p class="tw-indent-5">{{supportsClipboardAsync}}</p>      
     </article>
     <article class="tw-flex tw-gap-x-2 tw-justify-around">
-      <h2 class="tw-text-xl tw-text-orange-300">Is Clipboard (SYNC) Supported: </h2>
+      <h2 class="tw-text-xl tw-text-orange-300">Is Clipboard (Read) Supported: </h2>
       <p class="tw-indent-5">{{supportsClipboardSync}}</p>      
     </article>
   </section>
