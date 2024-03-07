@@ -27,10 +27,6 @@ import { onMounted, computed, ref } from 'vue'
     return percentComplete
   }
 
-  // function resolveComputedCss(object, cssKey){
-  //   return window.getComputedStyle(object)[cssKey]
-  // }
-  
   onMounted(() => {
     const allComputedStyles = ad_1.value.computedStyleMap();
 
@@ -59,8 +55,9 @@ import { onMounted, computed, ref } from 'vue'
     if (entries[0].isIntersecting){
       console.log('entering: ')
       scrollConfig.value.startTimestamp = Date.now()
+    } else {
+      console.log('leaving: ')
     }
-    console.log('leaving: ')
   }
 
   defineExpose({
@@ -86,10 +83,7 @@ import { onMounted, computed, ref } from 'vue'
     <p>4. Fusce sed ullamcorper dolor. Aenean eu diam sed diam faucibus consectetur. Donec eu eleifend neque. In et tincidunt sem, tempus consequat massa. Vestibulum cursus arcu sit amet rhoncus condimentum. Ut auctor ullamcorper felis a pulvinar. Mauris ac augue nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla libero urna, faucibus vitae tellus eu, molestie vulputate tellus. Aenean est massa, pulvinar ut justo non, hendrerit scelerisque eros. Ut ultricies justo a ligula aliquet, ac volutpat nunc lacinia. Ut a ultricies nulla. Curabitur sed ex non ex hendrerit viverra. Etiam dictum tincidunt purus, ac volutpat nunc euismod vel.</p>
     <article 
       ref="ad_1" 
-      class="tw-h-24 tw-max-h-0 tw-w-full tw-bg-gradient-to-t tw-from-slate-400 tw-to-amber-400"
-      :style="`
-        max-height: ${resolveMaxHeight(ad_1_config)}px;
-      `" ></article>
+      class="tw-h-24 tw-w-full tw-bg-fix tw-bg-[url('/airship.jpg')]"></article>
     <p>5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet libero nunc. Sed auctor tortor nec mi vulputate, a ultricies libero maximus. Pellentesque suscipit aliquet hendrerit. Donec at vehicula neque, a semper erat. Nunc a lorem et nibh consectetur ultrices et et erat. In fringilla sem eu ligula pulvinar pellentesque. Sed ipsum lectus, dapibus vel elit egestas, tincidunt vestibulum diam. Nullam porttitor arcu vitae odio luctus, id pretium quam hendrerit. Praesent pulvinar bibendum augue, facilisis dapibus metus rutrum non.</p>
     <article ref="ad_2"></article>
     <p>6. Fusce sed ullamcorper dolor. Aenean eu diam sed diam faucibus consectetur. Donec eu eleifend neque. In et tincidunt sem, tempus consequat massa. Vestibulum cursus arcu sit amet rhoncus condimentum. Ut auctor ullamcorper felis a pulvinar. Mauris ac augue nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla libero urna, faucibus vitae tellus eu, molestie vulputate tellus. Aenean est massa, pulvinar ut justo non, hendrerit scelerisque eros. Ut ultricies justo a ligula aliquet, ac volutpat nunc lacinia. Ut a ultricies nulla. Curabitur sed ex non ex hendrerit viverra. Etiam dictum tincidunt purus, ac volutpat nunc euismod vel.</p>
