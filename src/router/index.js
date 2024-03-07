@@ -28,6 +28,11 @@ const router = createRouter({
       component: () => import('../views/ProgressivlyStyledText.vue')
     },
     {
+      path: '/progressive-styled-text-css',
+      name: 'progressive-styled-text-css',
+      component: () => import('../views/ProgressivlyStyledTextCssOnly.vue')
+    },
+    {
       path: '/paralax-image',
       name: 'paralax-image',
       component: () => import('../views/ParalaxImage.vue')
