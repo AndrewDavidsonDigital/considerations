@@ -3,9 +3,7 @@ import { onMounted,  onUnmounted,  ref } from 'vue'
 
 // reactive state
 let modalRef = ref(null)
-let flyoutRef = ref(null)
 
-let flyoutOpenState = ref(false)
 const duration = 1000;
 
 const toggleDialog = (toOpen = false) => {
@@ -15,18 +13,6 @@ const toggleDialog = (toOpen = false) => {
     modalRef.value.close();
   }
 }
-const toggleFlyoutFromRight = (toOpen = false) => {
-  if (toOpen){
-    flyoutRef.value.showModal();
-    flyoutOpenState.value = true;
-  } else {
-    flyoutOpenState.value = false;
-    setTimeout(() => {
-      flyoutRef.value.close();
-    }, 1000)
-  }
-}
-
 
 onMounted(() => {
   document.body.classList.add('tw-overflow-x-hidden');
@@ -60,23 +46,12 @@ onUnmounted(() => {
       <button @click="toggleDialog(false)">Close</button>
     </div>
   </dialog>
-  <dialog 
-    ref="flyoutRef"
-    :class="[
-      'tw-m-auto',
-      'backdrop:tw-bg-green-500/30',
-      'tw-duration-custom',
-      { 'tw-w-full' : flyoutOpenState },
-      { 'tw-w-0' : !flyoutOpenState },
-    ]">
-    <div class="tw-flex tw-items-center tw-justify-center">
-      <button @click="toggleFlyoutFromRight(false)">Close</button>
-    </div>
-  </dialog>
 </template>
 
 <style scoped scss>
+/* 
   .tw-duration-custom{
     @apply tw-duration-[v-bind(duration)];
   }
+   */
 </style>
