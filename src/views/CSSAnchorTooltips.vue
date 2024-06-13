@@ -29,6 +29,7 @@ function toggleHelper(){
     <p class="indent-5">How can we use the new css Anchor properties to configure different types of tooltips</p>
     <h2 class="text-xl">Logic: </h2>
     <p class="indent-5">CSS anchors / anchoring is composed of two segments, the anchor object it self and the element(s) that is paired to it. Anchors and their content can be declared in Tailwind arbitrarily `[anchor-name:_--ANCHOR-NAME]`, and can be triggered programatically via dynamic CSS application `:class` or via confitional css of other elements `peer-hover:opcaity-100`</p>
+    <p class="indent-5">Given that the anchored element is always in the dom we will need remove these as they tooltip, even at opaicty-0, will sit above other elements in the base css stack, this can be cleanly solved with <RouterLink to="/discrete-animations">discrete animations</RouterLink></p>
   </section>
   <section class="flex gap-x-4">
     <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
