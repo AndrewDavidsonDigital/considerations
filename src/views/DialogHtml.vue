@@ -15,34 +15,34 @@ const toggleDialog = (toOpen = false) => {
 }
 
 onMounted(() => {
-  document.body.classList.add('tw-overflow-x-hidden');
+  document.body.classList.add('overflow-x-hidden');
 });
 
 onUnmounted(() => {
-  document.body.classList.remove('tw-overflow-x-hidden');
+  document.body.classList.remove('overflow-x-hidden');
 });
 
 </script>
   
 <template>
-  <section class="tw-text-white tw-text-left tw-w-1/2 tw-pb-5" style="background: #181818;">
-    <h2 class="tw-text-xl tw-text-orange-300">Issue: </h2>
-    <p class="tw-indent-5">Can the html dialog be used for Flyouts</p>
-    <h2 class="tw-text-xl tw-text-orange-300">Details: </h2>
-    <p class="tw-indent-5">Need to consider how to use the html Dialog tag, and see if its compatable with the concept of a flyout</p>
+  <section class="text-white text-left w-1/2 pb-5" style="background: #181818;">
+    <h2 class="text-xl text-orange-300">Issue: </h2>
+    <p class="indent-5">Can the html dialog be used for Flyouts</p>
+    <h2 class="text-xl text-orange-300">Details: </h2>
+    <p class="indent-5">Need to consider how to use the html Dialog tag, and see if its compatable with the concept of a flyout</p>
   </section>
-  <section class="tw-flex tw-flex-col tw-gap-y-2 tw-text-white tw-pb-5">
+  <section class="flex flex-col gap-y-2 text-white pb-5">
     <button @click="toggleDialog">Open Modal</button>
     <button @click="toggleFlyoutFromRight">Open Flyout from Right</button>
   </section>
   <dialog 
     ref="modalRef"
     class="
-      tw-m-auto
-      backdrop:tw-bg-red-500/30
-      tw-transition-all tw-duration-1000
+      m-auto
+      backdrop:bg-red-500/30
+      transition-all duration-1000
     ">
-    <div class="tw-flex tw-items-center tw-justify-center">
+    <div class="flex items-center justify-center">
       <button @click="toggleDialog(false)">Close</button>
     </div>
   </dialog>
@@ -50,8 +50,8 @@ onUnmounted(() => {
 
 <style scoped scss>
 /* 
-  .tw-duration-custom{
-    @apply tw-duration-[v-bind(duration)];
+  .duration-custom{
+    @apply duration-[v-bind(duration)];
   }
    */
 </style>

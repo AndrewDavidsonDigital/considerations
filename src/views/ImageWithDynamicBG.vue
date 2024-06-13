@@ -22,7 +22,7 @@ function changeImage(){
         document.getElementById('bgRight').style.backgroundColor = `${color.hex}`
         document.documentElement.style.setProperty('--colour-bg-bleed', color.rgba);
         // console.log(color)
-        // grab darkness and apply tw-mix-blend-color only if color.isDark === true
+        // grab darkness and apply mix-blend-color only if color.isDark === true
     })
     .catch(e => {
         console.log(e);
@@ -31,42 +31,42 @@ function changeImage(){
 </script>
 
 <template>
-  <section class="tw-text-white tw-text-left tw-w-1/2 tw-pb-5">
-    <h2 class="tw-text-xl">Problem: </h2>
-    <p class="tw-indent-5">Need to dynamically style the sides of the Background behind an image</p>
-    <h2 class="tw-text-xl">Details: </h2>
-    <p class="tw-indent-5">Need a solution for automatically defining the colours that should be used for 100% width of a hero banner that is content constrained</p>
-    <h2 class="tw-text-xl">Logic: </h2>
-    <p class="tw-indent-5">TBD</p>
+  <section class="text-white text-left w-1/2 pb-5">
+    <h2 class="text-xl">Problem: </h2>
+    <p class="indent-5">Need to dynamically style the sides of the Background behind an image</p>
+    <h2 class="text-xl">Details: </h2>
+    <p class="indent-5">Need a solution for automatically defining the colours that should be used for 100% width of a hero banner that is content constrained</p>
+    <h2 class="text-xl">Logic: </h2>
+    <p class="indent-5">TBD</p>
   </section>
-  <section class="tw-flex tw-gap-x-2 tw-text-black tw-pb-5">
+  <section class="flex gap-x-2 text-black pb-5">
     <button
-      class="tw-px-2 tw-bg-slate-400 tw-rounded-md" 
+      class="px-2 bg-slate-400 rounded-md" 
       @click="changeImage">Change {{ imageToggle ? 'to nightscape' : 'to airship' }}</button>
   </section>
-  <section class="tw-grid tw-grid-area-stack">
-    <div class="tw-m-breakout tw-flex tw-h-full tw-mix-blend-color">
-      <article id="bgLeft" class="tw-w-1/2 tw-bg-red-500"></article>
-      <article id="bgRight" class="tw-w-1/2 tw-bg-green-500"></article>
+  <section class="grid grid-area-stack">
+    <div class="m-breakout flex h-full mix-blend-color">
+      <article id="bgLeft" class="w-1/2 bg-red-500"></article>
+      <article id="bgRight" class="w-1/2 bg-green-500"></article>
     </div>
     <image 
       id="ithra" 
       src="/airship.jpg" 
-      class="tw-aspect-video tw-gradients"/>
+      class="aspect-video gradients"/>
   </section>
 </template>
 
 <style scoped scss>
-  .tw-m-breakout{
+  .m-breakout{
     margin:0 calc(50% - 50vw)
   }
-  .tw-grid-area-stack {
+  .grid-area-stack {
     grid-template-areas: "stack";
   }
-  .tw-grid-area-stack > * {
+  .grid-area-stack > * {
     grid-area: stack;
   }
-  .tw-gradients{
+  .gradients{
     mask-image: linear-gradient(to right, transparent 0%, var(--colour-bg-bleed) 20%, var(--colour-bg-bleed) 80%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--colour-bg-bleed) 20%, var(--colour-bg-bleed) 80%, transparent 100%);
   }

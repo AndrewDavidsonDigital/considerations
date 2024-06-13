@@ -257,51 +257,51 @@ import {
 </script>
   
 <template>
-  <section class="tw-text-white tw-text-left tw-w-1/2 tw-pb-5">
-    <h2 class="tw-text-xl tw-text-orange-300">Issue: </h2>
-    <p class="tw-indent-5">Need for a way to progressivly style text</p>
-    <h2 class="tw-text-xl tw-text-orange-300">Details: </h2>
-    <p class="tw-indent-5">Need to find a way to progressivly style text based on a specific progress, i.e. time or scroll position</p>
-    <h2 class="tw-text-xl tw-text-orange-300">Logic: </h2>
-    <h3 class="tw-text-lg tw-text-orange-300">Generic: </h3>
-    <p class="tw-indent-5">Define a template ref for the paragraph to style, prior to that in the template add a heirachily older sibling `element` that is positioned absolutely so that it sits underneath the template; This will house our `highlight` colour.</p>
-    <p class="tw-indent-5">Once loaded, and on aspect changes, read the computed sizing values and line-heighs. From this we can calculate the number, and size of all the lines within the paragraph.</p>
-    <p class="tw-indent-5">From this, our template iterates over our computed (number of lines), and we now have an indetically spaced underlying layer, with a `width` of 0% as we don't want to colour it yet. </p>
-    <p class="tw-indent-5">Using the mix-blend-multiply we on the paragraph we can colour the text based on the background of the underlying layers.</p>
-    <p class="tw-indent-5">For both Timed and Scrolled, per tick of itteration, calculate the percentages per row of scaling on each line, they will fall into one of 3 categories; Filled, Empty, and a single line Partially Filled</p>
-    <h3 class="tw-text-lg tw-text-orange-300">Timed: </h3>
-    <p class="tw-indent-5">For timed; we define a duration and a tick-interval, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row</p>
-    <h3 class="tw-text-lg tw-text-orange-300">Scrolled: </h3>
-    <p class="tw-indent-5">For Scrolled we define an Intersection Observer, around the center of the viewport, and a tick-interval. When the Intersection Observer is triggered either start or stop the ticker depending on if we entered or left the intersection, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row, based on the average percentage of both the Lower intersection with the bottom of the element and the Upper interseciont with the top of the element</p>
+  <section class="text-white text-left w-1/2 pb-5">
+    <h2 class="text-xl text-orange-300">Issue: </h2>
+    <p class="indent-5">Need for a way to progressivly style text</p>
+    <h2 class="text-xl text-orange-300">Details: </h2>
+    <p class="indent-5">Need to find a way to progressivly style text based on a specific progress, i.e. time or scroll position</p>
+    <h2 class="text-xl text-orange-300">Logic: </h2>
+    <h3 class="text-lg text-orange-300">Generic: </h3>
+    <p class="indent-5">Define a template ref for the paragraph to style, prior to that in the template add a heirachily older sibling `element` that is positioned absolutely so that it sits underneath the template; This will house our `highlight` colour.</p>
+    <p class="indent-5">Once loaded, and on aspect changes, read the computed sizing values and line-heighs. From this we can calculate the number, and size of all the lines within the paragraph.</p>
+    <p class="indent-5">From this, our template iterates over our computed (number of lines), and we now have an indetically spaced underlying layer, with a `width` of 0% as we don't want to colour it yet. </p>
+    <p class="indent-5">Using the mix-blend-multiply we on the paragraph we can colour the text based on the background of the underlying layers.</p>
+    <p class="indent-5">For both Timed and Scrolled, per tick of itteration, calculate the percentages per row of scaling on each line, they will fall into one of 3 categories; Filled, Empty, and a single line Partially Filled</p>
+    <h3 class="text-lg text-orange-300">Timed: </h3>
+    <p class="indent-5">For timed; we define a duration and a tick-interval, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row</p>
+    <h3 class="text-lg text-orange-300">Scrolled: </h3>
+    <p class="indent-5">For Scrolled we define an Intersection Observer, around the center of the viewport, and a tick-interval. When the Intersection Observer is triggered either start or stop the ticker depending on if we entered or left the intersection, each tick we reprocess the percentage of completion on all line to dynamically generate `width` values for each row, based on the average percentage of both the Lower intersection with the bottom of the element and the Upper interseciont with the top of the element</p>
   </section>
-  <section class="tw-flex tw-flex-col tw-gap-y-2 tw-text-black tw-pb-5">
-    <article class="tw-flex tw-gap-x-2 tw-justify-around">
+  <section class="flex flex-col gap-y-2 text-black pb-5">
+    <article class="flex gap-x-2 justify-around">
       <button
-        class="tw-px-2 tw-bg-slate-400 tw-rounded-md tw-border-2" 
+        class="px-2 bg-slate-400 rounded-md border-2" 
         :class="{
-          'tw-border-red-400': scrollToggled,
-          'tw-border-slate-400': !scrollToggled,
+          'border-red-400': scrollToggled,
+          'border-slate-400': !scrollToggled,
           }" 
         @click="timeToggled = false; scrollToggled = true">Scroll Toggled</button>
       <button 
-        class="tw-px-2 tw-bg-slate-400  tw-rounded-md tw-border-2"
+        class="px-2 bg-slate-400  rounded-md border-2"
         :class="{
-          'tw-border-red-400': timeToggled,
-          'tw-border-slate-400': !timeToggled,
+          'border-red-400': timeToggled,
+          'border-slate-400': !timeToggled,
           }" 
         @click="timeToggled = true; scrollToggled = false">Timer Toggled</button>
     </article>
-    <article class="tw-flex tw-gap-x-2 tw-justify-around">
-      <div class="tw-w-1/3 tw-inline-flex tw-text-white">FPS: <input v-model="fps" type='text' class="tw-ml-2 tw-pl-2 tw-text-black" style="width: 100%"></div>
-      <div class="tw-w-1/3 tw-inline-flex tw-text-white">Interval: <span class="tw-ml-2 tw-pl-2 tw-text-black tw-min-w-[4rem] tw-bg-white">{{interval}}</span></div>
+    <article class="flex gap-x-2 justify-around">
+      <div class="w-1/3 inline-flex text-white">FPS: <input v-model="fps" type='text' class="ml-2 pl-2 text-black" style="width: 100%"></div>
+      <div class="w-1/3 inline-flex text-white">Interval: <span class="ml-2 pl-2 text-black min-w-[4rem] bg-white">{{interval}}</span></div>
     </article>
   </section>
-  <section class="tw-min-h-[40vh] tw-hidden md:tw-flex tw-flex-col">
+  <section class="min-h-[40vh] hidden md:flex flex-col">
     spacer to enable scroll for scroll toggling
   </section>  
-  <section class="md:tw-w-[50vw] tw-aspect-square tw-flex tw-flex-col tw-mix-blend-lighten">
+  <section class="md:w-[50vw] aspect-square flex flex-col mix-blend-lighten">
     <section 
-      class="tw-absolute"
+      class="absolute"
       :style="`
         width: ${textWidth}; 
         height: ${textHeight}; 
@@ -312,7 +312,7 @@ import {
       >
       <template v-for="n in numberOfLinesToRender" :key="refreshKey + '_' + n">
         <article 
-          class="tw-bg-orange-500" 
+          class="bg-orange-500" 
           :style="`
             width: ${computedLineWidth(n)}; 
             height: ${textLineHeight}; 
@@ -320,11 +320,11 @@ import {
         />
       </template>
     </section>
-    <p ref="textModule" class="tw-text-white tw-font-bold tw-relative tw-p-3 tw-bg-black tw-mix-blend-multiply">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ne amores quidem sanctos a sapiente alienos esse arbitrantur. Si longus, levis.Ut id aliis narrare gestiant? An ea, quae per vinitorem antea consequebatur, per se ipsa curabit? Quamquam te quidem video minime esse deterritum.
+    <p ref="textModule" class="text-white font-bold relative p-3 bg-black mix-blend-multiply">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ne amores quidem sanctos a sapiente alienos esse arbitrantur. Si longus, levis.Ut id aliis narrare gestiant? An ea, quae per vinitorem antea consequebatur, per se ipsa curabit? Quamquam te quidem video minime esse deterritum.
 Duo Reges: constructio interrete. Est, ut dicis, inquam. Quid enim me prohiberet Epicureum esse, si probarem, quae ille diceret? Quae quo sunt excelsiores, eo dant clariora indicia naturae. Ita cum ea volunt retinere, quae superiori sententiae conveniunt, in Aristonem incidunt; An est aliquid per se ipsum flagitiosum, etiamsi nulla comitetur infamia? At ille pellit, qui permulcet sensum voluptate. Restatis igitur vos; Tum Quintus: Est plane, Piso, ut dicis, inquit. Mihi, inquam, qui te id ipsum rogavi? 
 Audax negotium, dicerem impudens, nisi hoc institutum postea translatum ad philosophos nostros esset. Profectus in exilium Tubulus statim nec respondere ausus; Quis Aristidem non mortuum diligit? Illa argumenta propria videamus, cur omnia sint paria peccata. Summus dolor plures dies manere non potest?</p>
   </section>
-  <section class="tw-min-h-[40vh] tw-flex tw-flex-col">
+  <section class="min-h-[40vh] flex flex-col">
     spacer to enable scroll for scroll toggling
   </section>  
 </template>
