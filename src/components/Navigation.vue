@@ -1,13 +1,13 @@
+<!-- eslint-disable prettier/prettier -->
+<script setup>
+import { navRoutes } from "./Navigation.js"
+
+</script>
+
 <template>
-  <nav class="tw-flex tw-flex-col tw-pb-5 tw-items-center tw-justify-start">
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/dialog-html">DialogHtml</RouterLink>
-    <RouterLink to="/dynamic-bg">Dynamic Image bleed to BG</RouterLink>
-    <RouterLink to="/paralax-image">Images displayed and layed behind content</RouterLink>
-    <RouterLink to="/date-time-translations">Date Time Translations</RouterLink>
-    <RouterLink to="/progressive-styled-text">Dynamic Text Styling</RouterLink>
-    <RouterLink to="/progressive-styled-text-css">Dynamic Text Styling (CSS)</RouterLink>
-    <RouterLink to="/saving-canvas">Saving from a Canvas</RouterLink>
-    <RouterLink to="/border-images">Custom Border Images</RouterLink>
+  <nav class="flex flex-col pb-5 items-center justify-start">
+    <template v-for="(value, index) in navRoutes" :key="'routerKey_' + index">
+      <RouterLink :to="value.path">{{value.title}}</RouterLink>
+    </template>
   </nav>
 </template>
