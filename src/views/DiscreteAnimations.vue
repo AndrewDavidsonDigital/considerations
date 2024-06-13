@@ -1,0 +1,117 @@
+<script setup>
+import { ref } from 'vue'
+
+// reactive state
+let modalRef = ref(null)
+
+const toggleDialog = (toOpen = false) => {
+  if (toOpen){
+    modalRef.value.showModal();
+  } else {
+    modalRef.value.close();
+  }
+}
+
+</script>
+
+<template>
+  <section class="text-white text-left w-1/2 pb-5">
+    <h2 class="text-xl">Issue: </h2>
+    <p class="indent-5">How can we transition an element to removal (like a modal or tool-tip) from dom without shrinking nor off-screening nor negative z-indexing (lowering z-index bellow that of the body / main)</p>
+    <h2 class="text-xl">Details: </h2>
+    <p class="indent-5">Should be able to achieve this with new discrete transitions allowing us to transition to `display: none`</p>
+    <h2 class="text-xl">Logic: </h2>
+    <p class="indent-5">TBD</p>
+  </section>
+  <section class="flex gap-x-8">
+    <!-- Dialogs -->
+    <section class="flex flex-col">
+      <h3>Dialogs</h3>
+      <button @click="toggleDialog" class="px-4 py-2 border-red-500 border border-solid rounded">Open Modal</button>
+      <dialog 
+        ref="modalRef"
+        class="
+          m-auto
+          aspect-square h-60
+
+          backdrop:transition-all
+          backdrop:duration-1000
+          backdrop:opacity-0
+          backdrop:bg-white
+
+          hidden
+          transition-all
+          duration-1000
+          opacity-0
+
+          [transition-behavior:_allow-discrete]
+          backdrop:[transition-behavior:_allow-discrete]
+        ">
+        <div class="flex flex-col justify-bewteen">
+          <button @click="toggleDialog(false)">Close</button>
+        </div>
+      </dialog>
+    </section>
+
+    <!-- Stacking anchors -->
+
+    <section class="flex flex-col">
+      <h3>Anchor Issues</h3>
+      <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
+      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover">Cant Hover me :'(</button>
+      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+
+      <br>
+
+      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover2">My anchor is blocking</button>
+      <div class="[position-anchor:_--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover2:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+    </section>
+
+    <section class="flex flex-col">
+      <h3>Anchors Fixed</h3>
+      <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
+      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover3">Yo, Hover me :D</button>
+      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover3:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+
+      <br>
+
+      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover4">My anchor could be blocking</button>
+      <div class="[position-anchor:_--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover4:opacity-100 opacity-0 duration-300 anchored-tr hidden [transition-behavior:_allow-discrete] fromHiddenToBlock peer-hover/hover4:block">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+    </section>
+
+  </section>
+</template>
+
+<style scoped>  
+ 
+  dialog[open]{
+    @apply block;
+    @apply opacity-100;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  dialog[open]::backdrop{
+    @apply opacity-30;
+  }
+
+  @starting-style {
+    dialog[open]::backdrop{
+      @apply opacity-0;
+    }
+  }
+  
+  .fromHiddenToBlock {
+    @starting-style {
+      opacity: 0;
+    }
+  }
+  
+  .anchored-tr {
+    bottom: anchor(top);
+    right: anchor(right);
+  }
+</style>
+

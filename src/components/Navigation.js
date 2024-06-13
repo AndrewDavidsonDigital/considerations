@@ -13,7 +13,7 @@ export const navRoutes = [
   },
   {
     path: "/paralax-image",
-    title: "Images displayed and layed behind content",
+    title: "NYI: Images displayed and layed behind content",
   },
   {
     path: "/date-time-translations",
@@ -38,6 +38,10 @@ export const navRoutes = [
   {
     path: "/tooltips",
     title: "Anchor CSS Tooltips"
+  },
+  {
+    path: "/discrete-animations",
+    title: "Discrete Animations"
   }
 ]
 

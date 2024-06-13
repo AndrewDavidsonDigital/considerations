@@ -57,6 +57,11 @@ const router = createRouter({
       name: 'tooltips',
       component: () => import('../views/CSSAnchorTooltips.vue')
     },
+    {
+      path: '/discrete-animations',
+      name: 'discrete-animations',
+      component: () => import('../views/DiscreteAnimations.vue')
+    },
   ]
 });
 
