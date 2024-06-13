@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <section class="tw-flex tw-flex-col tw-justify-between tw-items-center tw-h-full tw-w-full">
+  <section class="flex flex-col justify-between items-center h-full w-full">
     <Navigation />
     <RouterView />
   </section>

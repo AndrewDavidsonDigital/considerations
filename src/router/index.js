@@ -52,6 +52,11 @@ const router = createRouter({
       name: 'border-images',
       component: () => import('../views/BorderImages.vue')
     },
+    {
+      path: '/tooltips',
+      name: 'tooltips',
+      component: () => import('../views/CSSAnchorTooltips.vue')
+    },
   ]
 });
 
