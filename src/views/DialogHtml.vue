@@ -33,7 +33,7 @@ onUnmounted(() => {
   </section>
   <section class="flex flex-col gap-y-2 text-white pb-5">
     <button @click="toggleDialog">Open Modal</button>
-    <button @click="toggleFlyoutFromRight">Open Flyout from Right</button>
+    <!-- <button @click="toggleFlyoutFromRight">Open Flyout from Right</button> -->
   </section>
   <dialog 
     ref="modalRef"
@@ -41,6 +41,7 @@ onUnmounted(() => {
       m-auto
       backdrop:bg-red-500/30
       transition-all duration-1000
+      h-60 aspect-square
     ">
     <div class="flex items-center justify-center">
       <button @click="toggleDialog(false)">Close</button>

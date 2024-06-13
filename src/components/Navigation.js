@@ -33,7 +33,7 @@ export const navRoutes = [
   },
   {
     path: "/border-images",
-    title: "Custom Border Images",
+    title: "NYI: Custom Border Images",
   },
   {
     path: "/tooltips",

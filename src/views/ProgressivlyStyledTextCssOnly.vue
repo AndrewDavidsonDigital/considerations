@@ -1,4 +1,5 @@
 <script setup>
+import Highlight from '../components/Highlight.vue';
 /*
  * no JS needed
  */
@@ -11,7 +12,7 @@
     <h2 class="text-xl text-orange-300">Details: </h2>
     <p class="indent-5">Need to find a way to progressivly style text based on a scroll position</p>
     <h2 class="text-xl text-orange-300">Logic: </h2>
-    <p class="indent-5">Now that we have the css for animation-timeline and animation-range we can scrap all the JS implimentations and use these for `animation-range: scroll()` and `animation-range: view()` to capture and get our progression percentages for animations frames</p>
+    <p class="indent-5">Now that we have the css for animation-timeline and animation-range we can scrap all the JS implimentations and use these for <Highlight content="animation-range: scroll()"/> and <Highlight content="animation-range: view()"/> to capture and get our progression percentages for animations frames</p>
     <h2 class="text-xl text-orange-300">Source: </h2>
     <p class="indent-5">Kevin Powell https://www.youtube.com/watch?v=d10GaL6F-lA</p>
   </section>
