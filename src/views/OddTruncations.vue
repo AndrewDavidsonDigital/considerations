@@ -104,5 +104,11 @@
         </template>
       </div>
     </article>
+    <article>
+      <h2>FullText</h2>
+      <div class="border-orange-500 border-dashed border rounded">
+        <p v-html="baseHTML"></p>
+      </div>
+    </article>
   </section>
 </template>
