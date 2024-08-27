@@ -62,6 +62,11 @@ const router = createRouter({
       name: 'discrete-animations',
       component: () => import('../views/DiscreteAnimations.vue')
     },
+    {
+      path: '/odd-truncations',
+      name: 'odd-truncations',
+      component: () => import('../views/OddTruncations.vue')
+    },    
   ]
 });
 

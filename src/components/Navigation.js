@@ -42,6 +42,10 @@ export const navRoutes = [
   {
     path: "/discrete-animations",
     title: "Discrete Animations"
+  },
+  {
+    path: "/odd-truncations",
+    title: "Odd Truncations"
   }
 ]
 
