@@ -28,8 +28,8 @@
     const fontSize = singleParaTag.value.computedStyleMap().get('font-size').value || 16;
     const width = singleParaTag.value.getBoundingClientRect().width;
 
-    const myu = calculateMyuu(fontSize, charScoping.value.getBoundingClientRect().width, charScoping.value.innerText.length);
-    const size = calculateCPL(fontSize, myu ,width);
+    const myuu = calculateMyuu(fontSize, charScoping.value.getBoundingClientRect().width, charScoping.value.innerText.length);
+    const size = calculateCPL(fontSize, myuu ,width);
 
     // drop 10 chars as we will never have exactly the full line due to word-wrap
     const truncationCharStart = (size - 10) * LINES_TO_CLAMP;
