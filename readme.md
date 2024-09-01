@@ -1,41 +1,15 @@
-# considerations
+# Considerations
 
-This template should help get you started developing with Vue 3 in Vite.
+This is purely a scratch-note for any interesting / obscure / obsurde, feature / request that I've come across and remembered to log.
 
-## Recommended IDE Setup
+## Index
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
- 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- CSS only tooltips / popovers
+- HTMl Dialog
+- Discrete Animations :D
+- Short-Date native translations
+- ContentImage dynamiclly bleed to background
+- Reporting on truncations dynamically
+- Progressivly styled text / Text reveal - JS ( pre `animation: scroll-reveal`)
+- Progressivly styled text / Text reveal - CSS only
+- Saving html to clipboard as an image
