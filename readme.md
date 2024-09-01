@@ -14,5 +14,5 @@ This is purely a scratch-note for any interesting / obscure / obsurde, feature /
 - Progressivly styled text / Text reveal - CSS only
 - Saving html to clipboard as an image
 
-##### Note:
+##### Disclaimer:
 > As these are purely POC's this should not be taken as a measure of code quality.
