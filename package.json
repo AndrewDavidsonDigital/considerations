@@ -5,6 +5,7 @@
     "dev": "vite",
     "devHost": "vite --host",
     "build": "vite build",
+    "boot": "yarn && yarn dev --host",
     "review": "vite build && vite preview --port 4173 --host",
     "preview": "vite preview --port 4173",
     "previewHost": "vite preview --port 4173 --host",
