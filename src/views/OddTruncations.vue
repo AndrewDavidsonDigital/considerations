@@ -9,7 +9,7 @@
   let singleParaTag = ref();
   let charScoping = ref();
   let firstTruncated = ref(-1);
-  const baseHTML = "This is a multi-line paragraph with multiple sentense in a single `p` tag. <br> 2nd line This is a multi-line paragraph with multiple sentense in a single `p` tag.<br>3rd line This is a multi-line paragraph with multiple sentense in a single `p` tag.<br> 4th";
+  const baseHTML = "This is a multi-line paragraph with multiple sentence in a single `p` tag. <br> 2nd line This is a multi-line paragraph with multiple sentence in a single `p` tag.<br>3rd line This is a multi-line paragraph with multiple sentence in a single `p` tag.<br> 4th";
 
   onMounted(() => {
     // hacky ver
@@ -64,14 +64,17 @@
 <template>
   <section class="text-white text-left w-1/2 pb-5">
     <h2 class="text-xl">Issue: </h2>
-    <p class="indent-5">Line-clamp truncations are relativly simple now but how can popovers be limited by removing full sentense that are already shown.</p>
+    <p class="indent-5">Line-clamp truncations are relativly simple now but how can popovers be limited by removing full sentence that are already shown.</p>
     <h2 class="text-xl">Details: </h2>
-    <p class="indent-5">Not knowing where in the text the truncation starts and if it is after an entire sentense or not is the problem</p>
+    <p class="indent-5">Not knowing where in the text the truncation starts and if it is after an entire sentence or not is the problem</p>
     <h2 class="text-xl">Logic: </h2>
-    <p class="indent-5">We can split on the new line delimiter and roll a <Highlight content="p"/> tag per row, at this we can also dynamically set the <Highlight content="title"/> to a join of all remaining rows texts<br>only requirement here is to know the following core piece of information:<ul>
-      <li class="list-disc list-inside">How many chars are expected to be displayed before truncation<Highlight content="Calcualte CPL"/></li>
-      <li class="list-disc list-inside">What is the actual delimiter string for new lines <Highlight content="definable"/></li>
-    </ul></p>
+    <div>
+      <p> class="indent-5">We can split on the new line delimiter and roll a <Highlight content="p"/> tag per row, at this we can also dynamically set the <Highlight content="title"/> to a join of all remaining rows texts<br>only requirement here is to know the following core piece of information:</p>
+      <ul>
+        <li class="list-disc list-inside">How many chars are expected to be displayed before truncation<Highlight content="Calcualte CPL"/></li>
+        <li class="list-disc list-inside">What is the actual delimiter string for new lines <Highlight content="definable"/></li>
+      </ul>
+    </div>
   </section>
   <section class="flex flex-col w-fit gap-y-4 pb-10">
     <article class="overflow-hidden max-w-[0px]">
@@ -80,11 +83,11 @@
     <article>
       <h2>1 Single Paragraph tag, no hover</h2>
       <div class="border-orange-500 border-dashed border rounded line-clamp-3">
-        <p class="max-w-[20rem] ">This is a multi-line paragraph with multiple sentense in a single `p` tag. <br>This is a multi-line paragraph with multiple sentense in a single `p` tag. This is a multi-line paragraph with multiple sentense in a single `p` tag. </p>
+        <p class="max-w-[20rem] ">This is a multi-line paragraph with multiple sentence in a single `p` tag. <br>This is a multi-line paragraph with multiple sentence in a single `p` tag. This is a multi-line paragraph with multiple sentence in a single `p` tag. </p>
       </div>
     </article>
     <article>
-      <h2>1 Single Paragraph tag, hover via JS cull 1st sentense</h2>
+      <h2>1 Single Paragraph tag, hover via JS cull 1st sentence</h2>
       <div class="border-orange-500 border-dashed border rounded line-clamp-3">
         <p class="max-w-[20rem]" ref="singleParaTag" v-html="baseHTML"></p>
       </div>
@@ -92,14 +95,14 @@
     <article>
       <h2>2 Seperate Paragraph tags, only 2nd para has hover,<br> no consideration for 3rd or 4th paragraph</h2>
       <div class="border-orange-500 border-dashed border rounded line-clamp-3">
-        <p class="max-w-[20rem]">This is a multi-line paragraph with a single sentense in a `p` tag.</p>
-        <p class="max-w-[20rem]" title="This is the 2nd sentense multi-line paragraph with a single sentense in a `p` tag.">This is the 2nd sentense multi-line paragraph with a single sentense in a `p` tag.</p>
+        <p class="max-w-[20rem]">This is a multi-line paragraph with a single sentence in a `p` tag.</p>
+        <p class="max-w-[20rem]" title="This is the 2nd sentence multi-line paragraph with a single sentence in a `p` tag.">This is the 2nd sentence multi-line paragraph with a single sentence in a `p` tag.</p>
       </div>
     </article>
     <article>
-      <h2>N Seperate Paragraph tags, only 2nd para has hover of all other <Highlight content="Complete"/></h2>
+      <h2>N Separate Paragraph tags, only 2nd para has hover of all other <Highlight content="Complete"/></h2>
       <div class="border-orange-500 border-dashed border rounded line-clamp-3">
-        <template v-for="line, index in baseHTML.split(NEW_LINE_DELIMITER)">
+        <template v-for="line, index in baseHTML.split(NEW_LINE_DELIMITER)" :key="`2para_section__${index}`">
           <p class="max-w-[20rem]" v-html="line" :title="index >= firstTruncated ? generateTitle(index) : ''"></p>
         </template>
       </div>

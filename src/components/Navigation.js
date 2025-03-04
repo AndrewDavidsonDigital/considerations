@@ -46,6 +46,18 @@ export const navRoutes = [
   {
     path: "/odd-truncations",
     title: "Odd Truncations"
+  },
+  {
+    path: "/select-placeholders",
+    title: "Select Placeholders"
   }
 ]
 
+export function resolveRouteName(routeKey){
+  const resolvedRouteIndex = navRoutes.findIndex(el => el.path === routeKey);
+  if (resolvedRouteIndex === -1){
+    return null;
+  }
+
+  return navRoutes[resolvedRouteIndex].title;
+}

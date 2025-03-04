@@ -1,0 +1,96 @@
+
+/* Vue-Multiselect */
+
+[data-edit=true].editing-globals .multiselect {
+  @apply border-orange-300/80;
+}
+
+.multiselect {
+  @apply dark:bg-slate-900 bg-slate-700;
+  @apply dark:text-green-500;
+  @apply cursor-pointer;
+
+  @apply border border-green-300/50;
+
+  & .multiselect__option--selected{
+    @apply italic opacity-50;
+  }
+
+  & .multiselect__content-wrapper{
+    @apply px-2;
+  }
+
+  & .multiselect__tags-wrap {
+    @apply flex gap-2 px-2;
+  }
+
+  & .multiselect__tag:not(:last-child):after {
+    content: ","
+  }
+
+  &.multiselect--active {
+    @apply z-10 relative;
+
+    & .multiselect__clear{
+      @apply inline-flex;
+    }
+
+    & .multiselect__tags {
+      @apply sticky top-0;
+      @apply text-center;
+      @apply italic;
+    }
+
+    & .multiselect__input {
+      @apply dark:bg-slate-700 bg-slate-500;
+      @apply px-2;
+    }
+  }
+
+  & .multiselect__input {
+    @apply border-0;
+  }
+
+  & .multiselect__placeholder{
+    @apply opacity-50;
+    @apply px-2;
+    @apply whitespace-nowrap;
+  }
+
+
+  & .multiselect__single {
+    @apply capitalize;
+    @apply px-2;
+  }
+
+  & .multiselect__element {
+    @apply capitalize;
+  }
+
+  & .multiselect__content {
+    @apply !flex !flex-col;
+  }
+
+  & .multiselect__option {
+    @apply !inline-flex justify-around;
+    @apply w-full;
+    @apply text-center;
+  }
+
+  &:has(.multiselect__clear){
+    @apply relative;
+  }
+
+  & .multiselect__clear {
+    @apply sticky top-0 z-1 mx-2 !h-0;
+    float: right;
+    @apply hidden;
+  }
+
+
+  & .multiselect__tags {
+    @apply truncate;
+  }
+
+
+}

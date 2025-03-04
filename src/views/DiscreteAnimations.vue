@@ -22,15 +22,14 @@ const toggleDialog = (toOpen = false) => {
     <h2 class="text-xl">Details: </h2>
     <p class="indent-5">Should be able to achieve this with new discrete transitions allowing us to transition to <Highlight content="display: none"/></p>
     <h2 class="text-xl">Logic: </h2>
-    <p class="indent-5">Discrete animations need to define 3-points for a 2-phase transition.
-      <ul>
-        <ol class="list-disc list-inside list-item">Init Clearly defined <Highlight content="@starting-style{}"/></ol>
-        <ol class="list-disc list-inside list-item">Default state <Highlight content="display: none"/> or  <Highlight content="hidden"/> </ol>
-        <ol class="list-disc list-inside list-item">Final state <Highlight content="display: block"/> or  <Highlight content="block"/> </ol>
-      </ul>
-      <hr class="my-2">
-      Additionaly we need to pro-activly enbale transition support for discrete animation-types <Highlight content="transition-behavior: allow-discrete;" /> or <Highlight content="[transition-behavior:_allow-discrete]" />
-    </p>
+    <p class="indent-5">Discrete animations need to define 3-points for a 2-phase transition.</p>
+    <ul>
+      <ol class="list-disc list-inside list-item">Init Clearly defined <Highlight content="@starting-style{}"/></ol>
+      <ol class="list-disc list-inside list-item">Default state <Highlight content="display: none"/> or  <Highlight content="hidden"/> </ol>
+      <ol class="list-disc list-inside list-item">Final state <Highlight content="display: block"/> or  <Highlight content="block"/> </ol>
+    </ul>
+    <hr class="my-2">
+    <p>Additionaly we need to pro-activly enbale transition support for discrete animation-types <Highlight content="transition-behavior: allow-discrete;" /> or <Highlight content="[transition-behavior:_allow-discrete]" /></p>
   </section>
   <section class="flex gap-x-8">
     <!-- Dialogs -->

@@ -66,8 +66,14 @@ const router = createRouter({
       path: '/odd-truncations',
       name: 'odd-truncations',
       component: () => import('../views/OddTruncations.vue')
-    },    
+    },
+    {
+      path: '/select-placeholders',
+      name: 'select-placeholders',
+      component: () => import('../views/AccessibleSelectPlaceholders.vue')
+    },
   ]
 });
 
 export default router;
+

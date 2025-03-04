@@ -5,7 +5,12 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '1': 1,
+        'menu': 10000,
+      }
+    },
   },
   plugins: [],
 }
