@@ -4,7 +4,8 @@
   import Multiselect from 'vue-multiselect';
 
 
-  const multiselector = ref();
+  const multiselector_abs = ref();
+  const multiselector_grid = ref();
   const resultValue = ref(null);
   const options = ref(new Map([
     ['first', "First Value"],
@@ -24,7 +25,7 @@
     <h2 class="text-xl">Logic: </h2>
     <p class="indent-5">Placeholder content in itself should just be able to be a z-index'd higher element that has its opacity toggled based on a rule-set relative to the interaction of the underlying select element</p>
   </section>
-  <section class="flex flex-col w-fit gap-y-8 pb-10">
+  <section class="flex flex-col w-fit gap-y-8 justify-start h-[150%] mt-20">
     <article >
       <p>Native Select (doesn't support placeholders)</p>
       <select class="text-slate-700" v-if="options.size > 0" >
@@ -46,7 +47,7 @@
       </section>
     </article>
     <article>
-      <p>Standard Typeahead Selector without placeholder</p>
+      <p>Standard Typeahead Selector without placeholder - Absolute positioning</p>
       <p class="ml-5">Note that this looks horrible and can leave the user confused</p>
       <section class="absolute">
         <div 
@@ -55,14 +56,34 @@
           :class="[
             { '!opacity-50' : resultValue === null },
           ]"
-          @click.prevent="e => multiselector.activate()"
+          @click.prevent="e => multiselector_abs.activate()"
         >I'm a fake placeholder adasdasd</div>
         <multiselect
-          ref="multiselector"
+          ref="multiselector_abs"
           v-model="resultValue"
           :options="[...options.keys()]"
           placeholder=""
           class="w-fit min-w-40"
+        />
+      </section>
+    </article>
+    <article>
+      <p>Standard Typeahead Selector without placeholder - Grid Stacking</p>
+      <section class='w-min grid [grid-template-areas:_"stack"] *:[grid-area:_stack]'>
+        <div 
+          aria-hidden
+          class="w-full h-6 px-2 z-1 opacity-0 truncate cursor-pointer"
+          :class="[
+            { '!opacity-50' : resultValue === null },
+          ]"
+          @click.prevent="e => multiselector_grid.activate()"
+        >I'm a fake placeholder adasdasd</div>
+        <multiselect
+          ref="multiselector_grid"
+          v-model="resultValue"
+          :options="[...options.keys()]"
+          placeholder=""
+          class="w-full min-w-40"
         />
       </section>
     </article>
