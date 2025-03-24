@@ -13,7 +13,7 @@ export const navRoutes = [
   },
   {
     path: "/paralax-image",
-    title: "NYI: Images displayed and layed behind content",
+    title: "NYI: Images displayed and layered behind content",
   },
   {
     path: "/date-time-translations",
