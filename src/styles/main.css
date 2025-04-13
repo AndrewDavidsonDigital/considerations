@@ -1,9 +1,8 @@
+@import 'tailwindcss';
+/*@import './expose.css'; /* expose all tailwind css default colours*/
 @import "./base.css";
 @import "./vue-multiselect.css";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 #app {
   max-width: 1280px;
@@ -39,4 +38,61 @@ a,
   }
 }
 
+/* RESET */
 
+/* Balance headings */
+h1,h2,h3,h4,h5,h6 {
+  @apply text-balance;
+}
+
+/* text-content */
+p,li,figcaption {
+  @apply text-pretty;
+  /* @apply max-w-[65ch] */
+}
+
+/* Container query bounds */
+header, footer, main, section, article {
+  container-type: inline-size;
+  @apply duration-100
+}
+
+body {
+  @apply bg-slate-800;
+}
+
+@theme {
+  /* These values are added in addition to the defaults */
+  --breakpoint-xs: 480px;
+  --container-content: 1280px;
+}
+
+*{
+  --animate-duration: 1s;
+  animation-duration: var(--animate-duration) !important;
+}
+
+
+/**********/
+
+.grid-area-stack {
+  display: grid;
+  grid-template-areas: "stack";
+  >* {
+    grid-area: stack;
+  }      
+}
+
+.animation-duration-3000 {
+  --animate-duration: 3s;
+}
+.animation-duration-300 {
+  --animate-duration: 30ms;
+}
+
+.animation-pause {
+  animation-play-state: paused;
+}
+.animation-play {
+  animation-play-state: running;
+}

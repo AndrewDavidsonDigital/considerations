@@ -1,17 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import Highlight from '../components/Highlight.vue';
 
 // reactive state
 let toggler = ref(false)
-let modalRef = ref(null)
+let modalRef = ref<HTMLDialogElement>()
 
 
 const toggleDialog = (toOpen = false) => {
-  if (toOpen){
-    modalRef.value.showModal();
-  } else {
-    modalRef.value.close();
+  if (modalRef.value){
+    if (toOpen){
+      modalRef.value.showModal();
+    } else {
+      modalRef.value.close();
+    }
   }
 }
 
@@ -49,7 +51,7 @@ function toggleHelper(){
         }]'
       >zzzzzzz im going to stay asleep</div>
       
-    <button class="border-red-500 border border-solid px-4 py-2" @click="toggleDialog">What about in modals?</button>
+    <button class="border-red-500 border border-solid px-4 py-2" @click="() => toggleDialog()">What about in modals?</button>
     <dialog 
       ref="modalRef"
       class="

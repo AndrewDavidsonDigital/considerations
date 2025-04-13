@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { FastAverageColor } from 'fast-average-color';
 
@@ -8,21 +8,30 @@ let imageToggle = ref(true)
 
 function changeImage(){
   imageToggle.value = !imageToggle.value
-  const img = document.getElementById('ithra')
+  const img = document.getElementById('ithra');
+
+  if (!img){
+    return
+  }
 
   if (imageToggle.value){
-    img.src = '/airship.jpg'
+    (img as HTMLImageElement).src = '/airship.jpg'
   }else{
-    img.src = '/nightscape.jpg'
+    (img as HTMLImageElement).src = '/nightscape.jpg'
   }
   const fac = new FastAverageColor();
-  fac.getColorAsync(img)
+  fac.getColorAsync(img as HTMLImageElement)
     .then(color => {
-        document.getElementById('bgLeft').style.backgroundColor = `${color.hex}`
-        document.getElementById('bgRight').style.backgroundColor = `${color.hex}`
-        document.documentElement.style.setProperty('--colour-bg-bleed', color.rgba);
-        // console.log(color)
-        // grab darkness and apply mix-blend-color only if color.isDark === true
+      const left = document.getElementById('bgLeft');
+      const right = document.getElementById('bgRight');
+      if (!left || !right){
+        return;
+      }
+      left.style.backgroundColor = `${color.hex}`
+      right.style.backgroundColor = `${color.hex}`
+      document.documentElement.style.setProperty('--colour-bg-bleed', color.rgba);
+      // console.log(color)
+      // grab darkness and apply mix-blend-color only if color.isDark === true
     })
     .catch(e => {
         console.log(e);

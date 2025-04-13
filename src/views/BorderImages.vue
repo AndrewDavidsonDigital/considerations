@@ -1,5 +1,5 @@
 <!-- eslint-disable prettier/prettier -->
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 

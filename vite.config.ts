@@ -1,19 +1,21 @@
-import { fileURLToPath, URL } from 'node:url'
-import basicSsl from '@vitejs/plugin-basic-ssl'
+/// <reference types="vitest" />
 
 import { defineConfig } from 'vite'
+import path from "path";
 import vue from '@vitejs/plugin-vue'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
+  publicDir: "public",
   plugins: [
     basicSsl(),
     vue(),
   ],
-  usePolling: true,
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': path.resolve(__dirname, './src'),
     }
   }
 })

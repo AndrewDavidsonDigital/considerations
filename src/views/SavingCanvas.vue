@@ -1,23 +1,26 @@
-<script setup>
-import html2canvas from 'html2canvas';
-import { 
-  ref,
-  onMounted,
-  onUnmounted,
-  computed,
-} from 'vue'
-import { useDeviceStore } from "@/stores/device.js"
-import { dataURItoBlob } from "@/util/image.js"
+<script setup lang="ts">
+  import html2canvas from 'html2canvas';
+  import { 
+    ref,
+    onMounted,
+    computed,
+  } from 'vue'
+  import { useDeviceStore } from "@/stores/device";
+  import { dataURItoBlob } from "@/util/image";
   
   // reactive state
-  let button_1 = ref(null)
-  let button_2 = ref(null)
-  let linkRef = ref(null)
-  let canvasRef = ref(null)
-  let canvasDomDestinationRef = ref(null)
-  let htmlToCanvasRef = ref(null)
+  let button_1 = ref<HTMLButtonElement>()
+  let button_2 = ref<HTMLButtonElement>()
+  let linkRef = ref<HTMLAnchorElement>()
+  
+  let canvasRef = ref<HTMLCanvasElement>()
+  let canvasDomDestinationRef = ref<HTMLElement>()
+
+  let htmlToCanvasRef = ref<HTMLElement>()
+
   let supportsClipboardAsync = ref(false)
   let supportsClipboardSync = ref(false)
+
   const deviceStore = useDeviceStore()
 
 
@@ -29,39 +32,50 @@ import { dataURItoBlob } from "@/util/image.js"
     return supportsClipboardAsync.value || supportsClipboardSync.value
   })
 
-  function copyToClipboard(useDynamic){
+  function copyToClipboard(useDynamic: boolean){
     if (deviceStore.isIos){
       return
     }
     if (useDynamic){
-      canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1].toBlob((blob) => dumpToClipboardAsync(blob));
+      (canvasDomDestinationRef.value?.children[canvasDomDestinationRef.value.children.length-1] as HTMLCanvasElement).toBlob((blob) => dumpToClipboardAsync(blob));
     }else{
-      canvasRef.value.toBlob((blob) => dumpToClipboardAsync(blob));
+      canvasRef.value?.toBlob((blob) => dumpToClipboardAsync(blob));
     }
   }
 
-  async function copyFromClipboardIos(useDynamic){
+  async function copyFromClipboardIos(useDynamic: boolean){
     let dataUrl;
-    if (useDynamic){
-      dataUrl = canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1].toDataURL();
+    if (useDynamic && canvasDomDestinationRef.value){
+      dataUrl = (canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1] as HTMLCanvasElement).toDataURL();
     }else{
-      dataUrl = canvasRef.value.toDataURL();
+      dataUrl = canvasRef.value?.toDataURL();
     }
+
+    if (!dataUrl){
+      return;
+    }
+
     const blobby = dataURItoBlob(dataUrl);
     await dumpToClipboardAsync(blobby);
   }
 
-  async function dumpToClipboardAsync(blob){
+  async function dumpToClipboardAsync(blob: Blob | null){
+    if (!blob) {
+      return;
+    }
     const data = [new ClipboardItem({ [blob.type]: blob })];
     await navigator.clipboard.write(data);
   }
   
-  function saveAndDownload(useDynamic = false){
+  function saveAndDownload(useDynamic:boolean = false){
     let dataUrl;
     if (useDynamic){
-      dataUrl = canvasDomDestinationRef.value.children[canvasDomDestinationRef.value.children.length-1].toDataURL();
+      dataUrl = (canvasDomDestinationRef.value?.children[canvasDomDestinationRef.value.children.length-1] as HTMLCanvasElement).toDataURL();
     }else{
-      dataUrl = canvasRef.value.toDataURL();
+      dataUrl = canvasRef.value?.toDataURL();
+    }
+    if (!dataUrl || !(linkRef.value)) {
+      return;
     }
     linkRef.value.href = dataUrl;
     linkRef.value.click();
@@ -69,13 +83,16 @@ import { dataURItoBlob } from "@/util/image.js"
   }
 
   onMounted(() => {
-    const ctx = canvasRef.value.getContext("2d");
+    const ctx = canvasRef.value?.getContext("2d");
+    if (!ctx) {
+      return;
+    }
 
     ctx.fillStyle = "green";
     ctx.fillRect(10, 10, 150, 100);
 
-    html2canvas(document.querySelector("#htmlToCanvasRef")).then(canvas => {
-      canvasDomDestinationRef.value.appendChild(canvas)
+    html2canvas(document.querySelector("#htmlToCanvasRef") as HTMLCanvasElement).then(canvas => {
+      canvasDomDestinationRef.value?.appendChild(canvas)
     });
   });
 

@@ -1,57 +1,69 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, computed, ref } from 'vue'
 
 // reactive state
-  let ad_1 = ref(null)
-  let ad_2 = ref(null)
-  let observer = ref({});
+  let ad_1 = ref<HTMLDivElement>()
+  let ad_2 = ref<HTMLDivElement>()
+  let observer = ref<IntersectionObserver>();
   let fps = ref(60);
 
-  let ad_1_config = ref({ 
-    maxHeight: null,
+  interface IAdConfig {
+    maxHeight: number | 0;
+    minHeight: number;
+  }
+  interface IScrollConfig {
+    top: number;
+    bottom: number;
+    startTimestamp: number;
+  }
+
+  let ad_1_config = ref<IAdConfig>({ 
+    maxHeight: 0,
     minHeight: 1,
   })
 
-  let scrollConfig = ref({
+  let scrollConfig = ref<IScrollConfig>({
     top: 0,
     bottom: 0,
-    startTimestamp: null,
+    startTimestamp: -1,
   })
 
   const interval = computed(() => (1000 / fps.value).toFixed(2));
 
 
-  function resolveMaxHeight(config){
+  function resolveMaxHeight(config: IAdConfig){
     const totalScrollArea = scrollConfig.value.top - scrollConfig.value.bottom
     const percentComplete = Math.min(((scrollConfig.value.top - config.maxHeight) / totalScrollArea), 100)
     return percentComplete
   }
 
   onMounted(() => {
-    const allComputedStyles = ad_1.value.computedStyleMap();
-
-    // iterate thru the map of all the properties and values, adding a <dt> and <dd> for each
-    for (const [prop, val] of allComputedStyles) {
-      if (prop === 'height'){
-        ad_1_config.value.maxHeight = val[0].value
+    const allComputedStyles = ad_1.value?.computedStyleMap();
+    if (allComputedStyles){
+      // iterate thru the map of all the properties and values, adding a <dt> and <dd> for each
+      ad_1_config.value.maxHeight = Number(allComputedStyles.get('height')) || 0;
+      // for (const [prop, val] of allComputedStyles) {
+      //   if (prop === 'height'){
+      //     ad_1_config.value.maxHeight = val[0].value;
+      //   }
+      // }
+      // define observer
+      let options = {
+        rootMargin: '-40% 0% -40% 0%',
       }
-    }
-    // define observer
-    let options = {
-      rootMargin: '-40% 0% -40% 0%',
-    }
-    observer.value = new IntersectionObserver((entries, observer) => observerCallback(entries, observer), options);
+      observer.value = new IntersectionObserver((entries, observer) => observerCallback(entries, observer), options);
+      
+      observer.value.observe(ad_1.value as  HTMLElement);
     
-    observer.value.observe(ad_1.value);
-  
-    const gap = Math.abs(-40)
-    const topper = window.innerHeight * (gap /100)
-    const bottomout = window.innerHeight - window.innerHeight * (gap /100)
-    scrollConfig.value.bottom = Number(topper.toFixed(0))
-    scrollConfig.value.top = Number(bottomout.toFixed(0))
+      const gap = Math.abs(-40)
+      const topper = window.innerHeight * (gap /100)
+      const bottomout = window.innerHeight - window.innerHeight * (gap /100)
+      scrollConfig.value.bottom = Number(topper.toFixed(0))
+      scrollConfig.value.top = Number(bottomout.toFixed(0))
+    }
   })
 
-  function observerCallback(entries, observer){
+  function observerCallback(entries: IntersectionObserverEntry[], observer: IntersectionObserver){
     if (entries[0].isIntersecting){
       console.log('entering: ')
       scrollConfig.value.startTimestamp = Date.now()

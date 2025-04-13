@@ -1,4 +1,4 @@
-export function dataURItoBlob(dataURI) {
+export function dataURItoBlob(dataURI: string) {
     // Return null for invalid or empty data URIs
     if (!dataURI || !dataURI.startsWith('data:')) {
         return null;

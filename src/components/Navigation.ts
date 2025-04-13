@@ -53,7 +53,7 @@ export const navRoutes = [
   }
 ]
 
-export function resolveRouteName(routeKey){
+export function resolveRouteName(routeKey: string){
   const resolvedRouteIndex = navRoutes.findIndex(el => el.path === routeKey);
   if (resolvedRouteIndex === -1){
     return null;

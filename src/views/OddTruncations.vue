@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
   import { onMounted, ref } from 'vue'
   import Highlight from '../components/Highlight.vue';
 
@@ -18,7 +18,7 @@
     singleParaTag.value.title = crimpedTitle;
 
     // OMG maths . . .  send help
-    const newLineIndecies = [];
+    const newLineIndecies: number[] = [];
     let running = 0;
     splitHTML.forEach(el => {
       running = running + el.length;
@@ -43,19 +43,19 @@
 
   });
 
-  function generateTitle(index){
+  function generateTitle(index: number){
     let retval = '';
     const splitHTML = baseHTML.split(NEW_LINE_DELIMITER);
     retval = (splitHTML.splice(index)).join("\n");
     return retval;
   }
 
-  function calculateMyuu(fontSize, lineWidth, charCount){
+  function calculateMyuu(fontSize: number, lineWidth: number, charCount: number){
     console.debug(`Calculating Myuu: \n\tFontSize: ${fontSize}px\n\tLineWidth: ${lineWidth}\n\tCharCount: ${charCount}`);
     return (fontSize / (lineWidth / charCount));
   };
 
-  function calculateCPL(fontSize, charConstant, tagWidth){
+  function calculateCPL(fontSize: number, charConstant: number, tagWidth: number){
     console.debug(`Calculating CPL: \n\tFontSize: ${fontSize}px\n\tMyuu: ${charConstant}\n\tElementWidth: ${tagWidth}`);
     return (tagWidth / (fontSize / charConstant));
   };

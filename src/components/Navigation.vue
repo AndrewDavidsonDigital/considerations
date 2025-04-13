@@ -1,6 +1,6 @@
 <!-- eslint-disable prettier/prettier -->
-<script setup>
-import { navRoutes, resolveRouteName } from "./Navigation.js"
+<script setup lang="ts">
+import { navRoutes, resolveRouteName } from "./Navigation.ts"
 import { useRoute } from 'vue-router'
 import { ref } from 'vue';
 import IconMenu from "./icons/IconMenu.vue";

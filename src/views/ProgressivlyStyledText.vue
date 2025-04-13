@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { 
   ref,
   watch,
@@ -9,43 +9,63 @@ import {
   
   // reactive state
   let fps = ref(60);
-  let observer = ref({});
+  let observer = ref<IntersectionObserver>();
   let isLoadedFull = ref(false)
-  let refreshKey = ref(null)
-  let tickerId = ref(null)
+  let refreshKey = ref<number>()
+  let tickerId = ref<number>(-1)
   let scrollToggled = ref(true)
   let timeToggled = ref(false)
-  let textModule = ref(null) // element ref
+  let textModule = ref<HTMLParagraphElement>() // element ref
+  
   let textTop = ref('')
   let textBottom = ref('')
   let textHeight = ref('')
   let textWidth = ref('')
   let textLineHeight = ref('')
-  let textPaddingFull = ref({
+  let textPaddingFull = ref<IPaddingConfig>({
     top: '',
     bottom: '',
     left: '',
     right: '',
   })
 
-  let timeConfig = ref({
-    startTimestamp: null,
+
+  interface IPaddingConfig {
+    top: string;
+    bottom: string;
+    left: string;
+    right: string;
+  }
+  interface ITimerConfig {
+    startTimestamp: 0 | number,
+    duration: number,
+  }
+
+  interface IScrollConfig {
+    bias: number,
+    top: number,
+    bottom: number,
+    startTimestamp: 0 | number,
+  }
+
+  let timeConfig = ref<ITimerConfig>({
+    startTimestamp: 0,
     duration: 10000,
   })
 
-  let scrollConfig = ref({
+  let scrollConfig = ref<IScrollConfig>({
     bias: 1,
     top: 0,
     bottom: 0,
-    startTimestamp: null,
+    startTimestamp: 0,
   })
 
   function resolveTextSizes(){
     textHeight.value = resolveCss(textModule.value, 'height')
     textWidth.value = resolveCss(textModule.value, 'width')
     textLineHeight.value = resolveCss(textModule.value, 'lineHeight') 
-    textTop.value = textModule.value.getBoundingClientRect().top
-    textBottom.value = textModule.value.getBoundingClientRect().bottom
+    textTop.value = `${textModule.value?.getBoundingClientRect().top}`
+    textBottom.value = `${textModule.value?.getBoundingClientRect().bottom}`
     
     textPaddingFull.value.top = resolveCss(textModule.value, 'padding-top') 
     textPaddingFull.value.bottom = resolveCss(textModule.value, 'padding-bottom') 
@@ -53,11 +73,14 @@ import {
     textPaddingFull.value.right = resolveCss(textModule.value, 'padding-right') 
   }
 
-  function resolveCss(object, cssKey){
-    return window.getComputedStyle(object)[cssKey]
+  function resolveCss(object: HTMLElement | undefined, cssKey: string): string{
+    if (!object){
+      return '';
+    }
+    return (window.getComputedStyle(object)).getPropertyValue(cssKey);
   }
 
-  function computedLineWidth(index){
+  function computedLineWidth(index: number){
     const percentagesPerLine = 100 / numberOfLinesToRender.value 
     const shouldFill = shouldLineBeFilled(index, percentagesPerLine)
     const shouldEmpty = shouldLineBeEmpty(index, percentagesPerLine)
@@ -70,8 +93,8 @@ import {
       if (scrollToggled.value){
         const totalScrollArea = scrollConfig.value.top - scrollConfig.value.bottom
         const percentages = [
-          (((scrollConfig.value.top - textBottom.value) / totalScrollArea) * 100).toFixed(2),
-          (((scrollConfig.value.top - textTop.value) / totalScrollArea) * 100).toFixed(2),
+          (((scrollConfig.value.top - Number(textBottom.value)) / totalScrollArea) * 100).toFixed(2),
+          (((scrollConfig.value.top - Number(textTop.value)) / totalScrollArea) * 100).toFixed(2),
         ]
         const percentComplete = Math.max(Math.min((percentages.reduce((a,b) => a + Number(b), 0)), 100),0)
         const currentLinePercentOfPerLinePercent = (percentComplete % percentagesPerLine) / percentagesPerLine * 100
@@ -86,12 +109,12 @@ import {
     }
   }
 
-  function shouldLineBeFilled(index, percentagesPerLine){
+  function shouldLineBeFilled(index: number, percentagesPerLine: number){
     if (scrollToggled.value){
       const totalScrollArea = scrollConfig.value.top - scrollConfig.value.bottom
       const percentages = [
-        (((scrollConfig.value.top - textBottom.value) / totalScrollArea) * 100).toFixed(2),
-        (((scrollConfig.value.top - textTop.value) / totalScrollArea) * 100).toFixed(2),
+        (((scrollConfig.value.top - Number(textBottom.value)) / totalScrollArea) * 100).toFixed(2),
+        (((scrollConfig.value.top - Number(textTop.value)) / totalScrollArea) * 100).toFixed(2),
       ]
       const percentComplete = Math.max(Math.min((percentages.reduce((a,b) => a + Number(b), 0)), 100),0)  
       return (index * percentagesPerLine) <= percentComplete
@@ -103,12 +126,12 @@ import {
     }
   }
 
-  function shouldLineBeEmpty(index, percentagesPerLine){
+  function shouldLineBeEmpty(index: number, percentagesPerLine: number){
     if (scrollToggled.value){
       const totalScrollArea = scrollConfig.value.top - scrollConfig.value.bottom
       const percentages = [
-        (((scrollConfig.value.top - textBottom.value) / totalScrollArea) * 100).toFixed(2),
-        (((scrollConfig.value.top - textTop.value) / totalScrollArea) * 100).toFixed(2),
+        (((scrollConfig.value.top - Number(textBottom.value)) / totalScrollArea) * 100).toFixed(2),
+        (((scrollConfig.value.top - Number(textTop.value)) / totalScrollArea) * 100).toFixed(2),
       ]
       const percentComplete = Math.max(Math.min((percentages.reduce((a,b) => a + Number(b), 0)), 100),0)      
       return (index * percentagesPerLine) >= (percentComplete + percentagesPerLine)
@@ -117,37 +140,44 @@ import {
       const valueCompleted = Date.now() - timeConfig.value.startTimestamp
       const percentComplete = (valueCompleted / timeConfig.value.duration) * 100
       return (index * percentagesPerLine) >= (percentComplete + percentagesPerLine)
-    }
+    } 
+    
+    return false;
   }
   
   const textPaddingFullNumber = computed(() => {
-    let retval = {}
-    for (const [key, value] of Object.entries(textPaddingFull.value)){
-      retval[key] = Number(value.substring(0, value.length -2))
+    let retval:IPaddingConfig = {
+      top: '',
+      bottom: '',
+      left: '',
+      right: ''
     }
-    return retval
+    for (const [key, value] of Object.entries(textPaddingFull.value) as [keyof IPaddingConfig, string][]){
+      retval[key] = `${Number(value.substring(0, value.length -2))}px`
+    }
+    return retval as IPaddingConfig;
   })
   
-  const interval = computed(() => (1000 / fps.value).toFixed(2));
+  const interval = computed(() => Number((1000 / fps.value).toFixed(2)));
 
   const textHeightNumber = computed(() => Number(textHeight.value.substring(0, textHeight.value.length -2)))
   const textLineHeightNumber = computed(() => Number(textLineHeight.value.substring(0, textLineHeight.value.length -2)))
-  const numberOfLinesToRender = computed(() => ((textHeightNumber.value - textPaddingFullNumber.value.top - textPaddingFullNumber.value.bottom) / textLineHeightNumber.value) || 0)
+  const numberOfLinesToRender = computed(() => ((textHeightNumber.value - Number(textPaddingFullNumber.value.top) - Number(textPaddingFullNumber.value.bottom)) / textLineHeightNumber.value) || 0)
 
   function resolveHeightOffset(){
     const totalHalf = window.innerHeight / 2
     const usedHalf = (textHeightNumber.value / 2) * scrollConfig.value.bias
-    const retval = (-50 + (usedHalf / totalHalf * 50)).toFixed(2)
+    const retval = Number((-50 + (usedHalf / totalHalf * 50)).toFixed(2))
     return retval
   }
 
-  function observerCallback(entries, observer){
+  function observerCallback(entries: IntersectionObserverEntry[], observer: IntersectionObserver){
     if (isLoadedFull.value){
       if (entries[0].isIntersecting){
         scrollConfig.value.startTimestamp = Date.now()
-        tickerId.value = setInterval(() => ticker(), interval.value)
+        tickerId.value = (setInterval(() => ticker(), interval.value) as unknown as number)
       }else{
-        scrollConfig.value.startTimestamp = null
+        scrollConfig.value.startTimestamp = -1
         clearTickerInterval()
       }
     }
@@ -172,7 +202,7 @@ import {
       scrollConfig.value.top = Number(bottomout.toFixed(0))
 
       
-      observer.value.observe(textModule.value);
+      observer.value.observe((textModule.value as  HTMLElement));
       setTimeout(() => isLoadedFull.value = true, 1000)
     },500)
   })
@@ -196,15 +226,17 @@ import {
    * from button press
    */
   watch(scrollToggled, (newVal, oldVal) => {
-    if (newVal === true){
-      clearTickerInterval()
-      isLoadedFull.value = false
-      observer.value.observe(textModule.value);
-      scrollConfig.value.startTimestamp = Date.now()
-      setTimeout(() => isLoadedFull.value = true, interval.value)
-    }else{
-      observer.value.unobserve(textModule.value)
-      scrollConfig.value.startTimestamp = null
+    if(observer.value){
+      if (newVal === true){
+        clearTickerInterval()
+        isLoadedFull.value = false
+        observer.value.observe(textModule.value as HTMLElement);
+        scrollConfig.value.startTimestamp = Date.now()
+        setTimeout(() => isLoadedFull.value = true, interval.value)
+      }else{
+        observer.value.unobserve(textModule.value as HTMLElement)
+        scrollConfig.value.startTimestamp = -1
+      }
     }
   })
   
@@ -216,9 +248,9 @@ import {
     if (newVal === true){
       clearTickerInterval()
       timeConfig.value.startTimestamp = Date.now()
-      tickerId.value = setInterval(() => ticker(), interval.value)
+      tickerId.value = (setInterval(() => ticker(), interval.value) as unknown as number)
     }else{
-      timeConfig.value.startTimestamp = null
+      timeConfig.value.startTimestamp = -1
     }
   })
 
@@ -227,15 +259,15 @@ import {
    */
   function ticker(){
     const now = Date.now()
-    let endDuration;
+    let endDuration = 0;
     
     if(timeToggled.value){
       endDuration = timeConfig.value.startTimestamp + timeConfig.value.duration
     }
 
     if(scrollToggled.value){
-      textTop.value = textModule.value.getBoundingClientRect().top
-      textBottom.value = textModule.value.getBoundingClientRect().bottom
+      textTop.value = `${textModule.value?.getBoundingClientRect().top}`
+      textBottom.value = `${textModule.value?.getBoundingClientRect().bottom}`
     }
 
     if (timeToggled.value && (now >= endDuration)){
@@ -246,7 +278,7 @@ import {
 
   function clearTickerInterval(){    
     clearInterval(tickerId.value)
-    tickerId.value = null;
+    tickerId.value = -1;
   }
 
   defineExpose({

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
   import { ref } from 'vue'
   import Highlight from '../components/Highlight.vue';
   import Multiselect from 'vue-multiselect';

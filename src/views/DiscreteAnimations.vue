@@ -1,15 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import Highlight from '../components/Highlight.vue';
 
 // reactive state
-let modalRef = ref(null)
+let modalRef = ref<HTMLDialogElement>()
 
 const toggleDialog = (toOpen = false) => {
-  if (toOpen){
-    modalRef.value.showModal();
-  } else {
-    modalRef.value.close();
+  if (modalRef.value){
+    if (toOpen){
+      modalRef.value.showModal();
+    } else {
+      modalRef.value.close();
+    }
   }
 }
 
@@ -35,7 +37,10 @@ const toggleDialog = (toOpen = false) => {
     <!-- Dialogs -->
     <section class="flex flex-col">
       <h3>Dialogs</h3>
-      <button @click="toggleDialog" class="px-4 py-2 border-red-500 border border-solid rounded">Open Modal</button>
+      <button 
+        class="px-4 py-2 border-red-500 border border-solid rounded"
+        @click="() => toggleDialog()"
+      >Open Modal</button>
       <dialog 
         ref="modalRef"
         class="

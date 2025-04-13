@@ -1,16 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted,  onUnmounted,  ref } from 'vue'  
 
 // reactive state
-let modalRef = ref(null)
-
-const duration = 1000;
+let modalRef = ref<HTMLDialogElement>()
 
 const toggleDialog = (toOpen = false) => {
-  if (toOpen){
-    modalRef.value.showModal();
-  } else {
-    modalRef.value.close();
+  if (modalRef.value){
+    if (toOpen){
+      modalRef.value.showModal();
+    } else {
+      modalRef.value.close();
+    }
   }
 }
 
@@ -32,7 +32,9 @@ onUnmounted(() => {
     <p class="indent-5">Need to consider how to use the html Dialog tag, and see if its compatable with the concept of a flyout</p>
   </section>
   <section class="flex flex-col gap-y-2 text-white pb-5">
-    <button @click="toggleDialog">Open Modal</button>
+    <button
+      @click="() => toggleDialog()"
+    >Open Modal</button>
     <!-- <button @click="toggleFlyoutFromRight">Open Flyout from Right</button> -->
   </section>
   <dialog 
@@ -44,7 +46,9 @@ onUnmounted(() => {
       h-60 aspect-square
     ">
     <div class="flex items-center justify-center">
-      <button @click="toggleDialog(false)">Close</button>
+      <button 
+        @click="() => toggleDialog(false)"
+      >Close</button>
     </div>
   </dialog>
 </template>
