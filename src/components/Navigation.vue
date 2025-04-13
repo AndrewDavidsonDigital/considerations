@@ -1,8 +1,9 @@
 <!-- eslint-disable prettier/prettier -->
 <script setup lang="ts">
-import { navRoutes, resolveRouteName } from "./Navigation.ts"
+import { resolveRouteName } from "./Navigation.ts"
 import { useRoute } from 'vue-router'
 import { ref } from 'vue';
+import { routes } from '@/router'
 import IconMenu from "./icons/IconMenu.vue";
 
 const currentRoute = useRoute();
@@ -32,7 +33,7 @@ const isMenuOpen = ref<boolean>(false);
       ]"
     >
       <section class=" px-5 py-10 flex flex-col gap-y-2 overflow-hidden">
-          <template v-for="(value, index) in navRoutes" :key="'routerKey_' + index">
+          <template v-for="(value, index) in routes" :key="'routerKey_' + index">
             <RouterLink v-if="value.path !== currentRoute.path" :to="value.path" class="truncate duration-500 hover:text-orange-400" @click="isMenuOpen = false" :title="value.title">{{value.title}}</RouterLink>
             <RouterLink v-else :to="value.path" class="pointer-events-none cursor-default truncate duration-500 text-cyan-500" :title="value.title">{{value.title}}</RouterLink>
           </template>

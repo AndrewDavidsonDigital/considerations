@@ -9,6 +9,7 @@
   @apply py-8;
 
   font-weight: normal;
+  interpolate-size: allow-keywords;
 }
 
 a,
