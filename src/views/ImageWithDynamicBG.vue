@@ -61,7 +61,7 @@ function changeImage(){
     <image 
       id="ithra" 
       src="/airship.jpg" 
-      class="aspect-video gradients"/>
+      class="aspect-video gradients z-10"/>
   </section>
 </template>
 

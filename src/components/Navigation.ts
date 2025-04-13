@@ -21,7 +21,7 @@ export const navRoutes = [
   },
   {
     path: "/progressive-styled-text",
-    title: "Dynamic Text Styling",
+    title: "NYI: Dynamic Text Styling (broken due to tailwind update to 4.x)",
   },
   {
     path: "/progressive-styled-text-css",

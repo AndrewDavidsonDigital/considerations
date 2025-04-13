@@ -4,7 +4,7 @@ import { onMounted,  onUnmounted,  ref } from 'vue'
 // reactive state
 let modalRef = ref<HTMLDialogElement>()
 
-const toggleDialog = (toOpen = false) => {
+function toggleDialog(toOpen = false){
   if (modalRef.value){
     if (toOpen){
       modalRef.value.showModal();
@@ -33,7 +33,7 @@ onUnmounted(() => {
   </section>
   <section class="flex flex-col gap-y-2 text-white pb-5">
     <button
-      @click="() => toggleDialog()"
+      @click="() => toggleDialog(true)"
     >Open Modal</button>
     <!-- <button @click="toggleFlyoutFromRight">Open Flyout from Right</button> -->
   </section>

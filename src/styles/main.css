@@ -6,7 +6,6 @@
 
 #app {
   max-width: 1280px;
-  margin: 0 auto;
   @apply py-8;
 
   font-weight: normal;
@@ -25,19 +24,6 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    padding: 0 2rem;
-    height: 80vh;
-    width: 80vw;
-  }
-}
-
 /* RESET */
 
 /* Balance headings */
@@ -51,15 +37,6 @@ p,li,figcaption {
   /* @apply max-w-[65ch] */
 }
 
-/* Container query bounds */
-header, footer, main, section, article {
-  container-type: inline-size;
-  @apply duration-100
-}
-
-body {
-  @apply bg-slate-800;
-}
 
 @theme {
   /* These values are added in addition to the defaults */
@@ -80,7 +57,15 @@ body {
   grid-template-areas: "stack";
   >* {
     grid-area: stack;
-  }      
+  }
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+.z-menu{
+  z-index: 10000;
 }
 
 .animation-duration-3000 {

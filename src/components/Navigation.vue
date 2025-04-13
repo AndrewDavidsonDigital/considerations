@@ -7,15 +7,15 @@ import IconMenu from "./icons/IconMenu.vue";
 
 const currentRoute = useRoute();
 
-const isMenuOpen = ref(false);
+const isMenuOpen = ref<boolean>(false);
 
 </script>
 
 <template>
-  <nav class="relative">
+  <nav class="relative max-h-5">
     <div 
       class="ml-auto mr-2 cursor-pointer w-fit flex gap-2 group"
-      @click="isMenuOpen = !isMenuOpen">
+      @click="() => (isMenuOpen = !isMenuOpen)">
       <h2 class="text-lg duration-500 text-emerald-400 group-hover:text-orange-400">Navigation ({{resolveRouteName(currentRoute.path)}})</h2>
       <IconMenu class="transition-colors duration-500 text-emerald-400 group-hover:stroke-orange-400"/>
     </div>

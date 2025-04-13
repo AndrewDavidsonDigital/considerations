@@ -39,7 +39,7 @@ const toggleDialog = (toOpen = false) => {
       <h3>Dialogs</h3>
       <button 
         class="px-4 py-2 border-red-500 border border-solid rounded"
-        @click="() => toggleDialog()"
+        @click="() => toggleDialog(true)"
       >Open Modal</button>
       <dialog 
         ref="modalRef"
@@ -71,32 +71,41 @@ const toggleDialog = (toOpen = false) => {
     <section class="flex flex-col">
       <h3>Anchor Issues</h3>
       <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
-      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover">Cant Hover me :'(</button>
-      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover">Cant Hover me :'(</button>
+      <div class="[position-anchor:--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
 
       <br>
 
-      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover2">My anchor is blocking</button>
-      <div class="[position-anchor:_--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover2:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover2">My anchor is blocking</button>
+      <div class="[position-anchor:--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover2:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
     </section>
 
     <section class="flex flex-col">
       <h3>Anchors Fixed</h3>
       <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
-      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover3">Yo, Hover me :D</button>
-      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover3:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover3">Yo, Hover me :D</button>
+      <div class="[position-anchor:--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover3:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
 
       <br>
 
-      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover4">My anchor could be blocking</button>
-      <div class="[position-anchor:_--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover4:opacity-100 opacity-0 duration-300 anchored-tr hidden [transition-behavior:_allow-discrete] fromHiddenToBlock peer-hover/hover4:block">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover4">My anchor could be blocking</button>
+      <div class="
+        bg-red-500 border-red-500 rounded 
+        min-h-4 min-w-60 px-4 py-2 my-2 
+        absolute hidden
+        peer-hover/hover4:opacity-100 peer-hover/hover4:block
+        opacity-0 duration-300 anchored-tr 
+        [position-anchor:--anchor-el-2]
+        [transition-behavior:_allow-discrete]
+        fromHiddenToBlock"
+      >Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
     </section>
 
   </section>
 </template>
 
-<style scoped>  
- 
+<style scoped>
+
   dialog[open]{
     @apply block;
     @apply opacity-100;

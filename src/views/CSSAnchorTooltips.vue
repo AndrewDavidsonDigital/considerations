@@ -51,7 +51,7 @@ function toggleHelper(){
         }]'
       >zzzzzzz im going to stay asleep</div>
       
-    <button class="border-red-500 border border-solid px-4 py-2" @click="() => toggleDialog()">What about in modals?</button>
+    <button class="border-red-500 border border-solid px-4 py-2" @click="() => toggleDialog(true)">What about in modals?</button>
     <dialog 
       ref="modalRef"
       class="

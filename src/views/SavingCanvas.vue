@@ -84,6 +84,7 @@
 
   onMounted(() => {
     const ctx = canvasRef.value?.getContext("2d");
+    console.log(ctx);
     if (!ctx) {
       return;
     }
@@ -100,29 +101,31 @@
   
 <template>
   <section ref="htmlToCanvasRef" id="htmlToCanvasRef" class="text-white text-left w-1/2 pb-5" style="background: #181818;">
-    <h2 class="text-xl text-orange-300">Issue: </h2>
+    <h3 class="text-lg text-orange-300-rgba">NOTE: </h3>
+    <p class="indent-5">HTML2Canvas doesn't support `oklch` colour space</p>
+    <h2 class="text-xl text-orange-300-rgba">Issue: </h2>
     <p class="indent-5">How can we share a html-5 canvas</p>
-    <h2 class="text-xl text-orange-300">Details: </h2>
+    <h2 class="text-xl text-orange-300-rgba">Details: </h2>
     <p class="indent-5">Need to find a way to save and download a html-5 canvas, or copy to the users clipboard</p>
-    <h2 class="text-xl text-orange-300">Logic: </h2>
-    <h3 class="text-lg text-orange-300">Clipboard: </h3>
+    <h2 class="text-xl text-orange-300-rgba">Logic: </h2>
+    <h3 class="text-lg text-orange-300-rgba">Clipboard: </h3>
     <p class="indent-5">Turn the canvas element into a BLOB asset and then turn said blob asset into a ClipboardItem</p>
-    <h3 class="text-lg text-orange-300">Download: </h3>
+    <h3 class="text-lg text-orange-300-rgba">Download: </h3>
     <p class="indent-5 word-break">Turn the canvas element into a DataURL (`data:image/png;base64,iVBORw0KGgoAAAANSUhEU...`) and then push said DataURL as the HREF of an anchor, click anchor, then clear anchor HREF</p>
-    <br>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-lime-500"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
+    <br>  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-lime-500-rgba"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
   </section>
   <section class="flex flex-col gap-y-2 text-white pb-5">
     <article class="flex gap-x-2 justify-around">
-      <h2 class="text-xl text-orange-300">Is IOS?: </h2>
+      <h2 class="text-xl text-orange-300-rgba">Is IOS?: </h2>
       <p class="indent-5">{{deviceStore.isIos}}</p>      
     </article>
     <article class="flex gap-x-2 justify-around">
-      <h2 class="text-xl text-orange-300">Is Clipboard (Write) Supported: </h2>
+      <h2 class="text-xl text-orange-300-rgba">Is Clipboard (Write) Supported: </h2>
       <p class="indent-5">{{supportsClipboardAsync}}</p>      
     </article>
     <article class="flex gap-x-2 justify-around">
-      <h2 class="text-xl text-orange-300">Is Clipboard (Read) Supported: </h2>
+      <h2 class="text-xl text-orange-300-rgba">Is Clipboard (Read) Supported: </h2>
       <p class="indent-5">{{supportsClipboardSync}}</p>      
     </article>
   </section>
@@ -174,5 +177,11 @@
 <style scoped scss>
   .word-break{
     word-break: break-word;
+  }
+  .text-orange-300-rgba {
+    color: #ffb86a;
+  }
+  .text-lime-500-rgba {
+    color: #7ccf00;
   }
 </style>

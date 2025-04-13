@@ -28,7 +28,7 @@
   <section class="flex flex-col w-fit gap-y-8 justify-start h-[150%] mt-20">
     <article >
       <p>Native Select (doesn't support placeholders)</p>
-      <select class="text-slate-700" v-if="options.size > 0" >
+      <select class="text-slate-700 bg-slate-900 border border-emerald-600 rounded-sm" v-if="options.size > 0" >
         <template v-for="(key, index) in [...options.keys()]" :key="`${key}_${index}`">
           <option :value="key" :selected="index === 0">{{options.get(key)}}</option>
         </template>
