@@ -2436,7 +2436,7 @@ type-check@^0.4.0, type-check@~0.4.0:
   dependencies:
     prelude-ls "^1.2.1"
 
-typescript-eslint@^8.26.0:
+typescript-eslint@^8.26.0, typescript-eslint@^8.29.1:
   version "8.29.1"
   resolved "https://registry.yarnpkg.com/typescript-eslint/-/typescript-eslint-8.29.1.tgz#c0b205e542ade22f9027caaaa9c4ec31a202010f"
   integrity sha512-f8cDkvndhbQMPcysk6CUSGBWV+g1utqdn71P5YKwMumVMOG/5k7cHq0KyG4O52nB0oKS4aN2Tp5+wB4APJGC+w==
