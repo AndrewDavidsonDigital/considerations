@@ -53,6 +53,8 @@
             flex flex-col gap-4
             
             particle-blurs
+
+            before:blur-xl after:blur-xl
           "
         >
           <article 
@@ -218,21 +220,23 @@
     @apply rounded-full;
     
     aspect-ratio: 16/9;
-    height: calc(var(--spacing) * 32);
     content: '';
-    z-index: 1;
-
-    --tw-blur: blur(var(--blur-lg) /* 16px */);
-    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+    z-index: -1;
   }
   
   .particle-blurs::before{
+    background: radial-gradient(oklch(55.4% 0.046 257.417 / 0.15));
+    height: calc(var(--spacing) * 32);
     top: calc(var(--spacing) * -4);
-    left: calc(var(--spacing) * -8);
+    left: calc(var(--spacing) * -12);
   }
   .particle-blurs::after {
-    bottom: calc(var(--spacing) * -8);
+    /* background: radial-gradient(oklch(27.9% 0.041 260.031 / 0.3)); */
+    /* var(--color-slate-900) */
+    background: radial-gradient(oklch(20.8% 0.042 265.755 / 0.6));
+    height: calc(var(--spacing) * 24);
+    bottom: calc(var(--spacing) * -12);
     right: calc(var(--spacing) * -8);
   }
-  
+
 </style>
