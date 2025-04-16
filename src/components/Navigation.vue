@@ -27,7 +27,7 @@ watch(isMenuOpen, (newVal) => {
       @click="() => (isMenuOpen = !isMenuOpen)"
     >
       <h2 class="text-lg duration-500 text-emerald-400 group-hover:text-orange-400">
-        Navigation ({{ resolveRouteName(currentRoute.path) }})
+        Navigation {{ currentRoute.path === '/' ? '' : '(' }} {{ resolveRouteName(currentRoute.path) }}{{ currentRoute.path === '/' ? '' : ')' }}
       </h2>
       <IconMenu class="transition-colors duration-500 text-emerald-400 group-hover:stroke-orange-400" />
     </button>

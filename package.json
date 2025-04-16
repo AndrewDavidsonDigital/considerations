@@ -25,7 +25,6 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.11.0",
     "@types/node": "^20.14.15",
-    "@vitejs/plugin-basic-ssl": "^0.1.2",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/test-utils": "^2.0.2",
