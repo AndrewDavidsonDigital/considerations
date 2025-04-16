@@ -13,6 +13,7 @@ import DiscreteAnimations from '../views/DiscreteAnimations.vue'
 import OddTruncations from '../views/OddTruncations.vue'
 import AccessibleSelectPlaceholders from '../views/AccessibleSelectPlaceholders.vue'
 import AccessibleForAccesibilitiesSake from '@/views/AccessibleForAccesibilitiesSake.vue'
+import SnakeBorders from '@/views/SnakeBorders.vue'
 
 export const routes = [
   {
@@ -23,7 +24,7 @@ export const routes = [
   {
     path: '/dialog-html',
     name: 'dialog-html',
-    title: "Dynamic Image bleed to BG",
+    title: "Native dialog",
     component: DialogHtml
   },
   {
@@ -97,6 +98,12 @@ export const routes = [
     name: 'accessibility-at-any-cost',
     title: "Accessibility at any Cost",
     component: AccessibleForAccesibilitiesSake
+  },
+  {
+    path: '/snake-border',
+    name: 'snake-border',
+    title: "Snake gradient Borders",
+    component: SnakeBorders,
   },
 ];
 

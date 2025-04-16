@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-/*@import './expose.css'; /* expose all tailwind css default colours*/
+@import './expose.css'; /* expose all tailwind css default colours */
 @import "./base.css";
 @import "./vue-multiselect.css";
 
