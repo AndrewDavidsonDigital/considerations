@@ -41,27 +41,49 @@ function changeImage(){
 
 <template>
   <section class="text-white text-left w-1/2 pb-5">
-    <h2 class="text-xl">Problem: </h2>
-    <p class="indent-5">Need to dynamically style the sides of the Background behind an image</p>
-    <h2 class="text-xl">Details: </h2>
-    <p class="indent-5">Need a solution for automatically defining the colours that should be used for 100% width of a hero banner that is content constrained</p>
-    <h2 class="text-xl">Logic: </h2>
-    <p class="indent-5">TBD</p>
+    <h2 class="text-xl">
+      Problem:
+    </h2>
+    <p class="indent-5">
+      Need to dynamically style the sides of the Background behind an image
+    </p>
+    <h2 class="text-xl">
+      Details:
+    </h2>
+    <p class="indent-5">
+      Need a solution for automatically defining the colours that should be used for 100% width of a hero banner that is content constrained
+    </p>
+    <h2 class="text-xl">
+      Logic:
+    </h2>
+    <p class="indent-5">
+      TBD
+    </p>
   </section>
   <section class="flex gap-x-2 text-black pb-5">
     <button
       class="px-2 bg-slate-400 rounded-md" 
-      @click="changeImage">Change {{ imageToggle ? 'to nightscape' : 'to airship' }}</button>
+      @click="changeImage"
+    >
+      Change {{ imageToggle ? 'to nightscape' : 'to airship' }}
+    </button>
   </section>
   <section class="grid grid-area-stack">
     <div class="m-breakout flex h-full mix-blend-color">
-      <article id="bgLeft" class="w-1/2 bg-red-500"></article>
-      <article id="bgRight" class="w-1/2 bg-green-500"></article>
+      <article
+        id="bgLeft"
+        class="w-1/2 bg-red-500"
+      ></article>
+      <article
+        id="bgRight"
+        class="w-1/2 bg-green-500"
+      ></article>
     </div>
     <image 
       id="ithra" 
       src="/airship.jpg" 
-      class="aspect-video gradients z-10"/>
+      class="aspect-video gradients z-10"
+    />
   </section>
 </template>
 

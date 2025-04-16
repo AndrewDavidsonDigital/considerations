@@ -86,37 +86,76 @@ onMounted(() => {
 
 <template>
   <section class="text-white text-left w-1/2 pb-5">
-    <h2 class="text-xl">Issue: </h2>
-    <p class="indent-5">Verification / Dissproval of claim: <em>Native JS Date object intl is <strong>SLOW</strong></em></p>
-    <h2 class="text-xl">Details: </h2>
-    <p class="indent-5">Mate refused to use the innate embedded translations from JS Date object, for unclear reasons and claimed its was just obsurdly slow when asked for reasoning</p>
-    <h2 class="text-xl">Logic: </h2>
-    <p class="indent-5">Code takes a list of String represenations of `Day of the week`, i.e.: Monday, and needs to resolve the intl, short name for these, relative to a given locale.<pre  class="indent-0 p-3 rounded-md bg-orange-300 text-black italic"><code lang="js">DAYNAME_CONSTS.friday.toLocaleString(locale, { 'weekday': 'short' })</code></pre> From this we can see that resolving results for 8 entities takes between 0 and 1ms, this is clearly not slow. As Just iterating over the loop can be seen to take between 0 and 1ms, but on average closer to 0</p>
+    <h2 class="text-xl">
+      Issue:
+    </h2>
+    <p class="indent-5">
+      Verification / Dissproval of claim: <em>Native JS Date object intl is <strong>SLOW</strong></em>
+    </p>
+    <h2 class="text-xl">
+      Details:
+    </h2>
+    <p class="indent-5">
+      Mate refused to use the innate embedded translations from JS Date object, for unclear reasons and claimed its was just obsurdly slow when asked for reasoning
+    </p>
+    <h2 class="text-xl">
+      Logic:
+    </h2>
+    <p class="indent-5">
+      Code takes a list of String represenations of `Day of the week`, i.e.: Monday, and needs to resolve the intl, short name for these, relative to a given locale.<pre class="indent-0 p-3 rounded-md bg-orange-300 text-black italic"><code lang="js">DAYNAME_CONSTS.friday.toLocaleString(locale, { 'weekday': 'short' })</code></pre> From this we can see that resolving results for 8 entities takes between 0 and 1ms, this is clearly not slow. As Just iterating over the loop can be seen to take between 0 and 1ms, but on average closer to 0
+    </p>
   </section>
   <section class="flex gap-x-2 text-black pb-5">
     <button
       class="px-2 bg-slate-400 rounded-md" 
-      @click="justIterateLoop">Loop only</button>
+      @click="justIterateLoop"
+    >
+      Loop only
+    </button>
     <button 
       class="px-2 bg-slate-400 rounded-md" 
-      @click="translateEntireWeek('en-AU')">Start-AU</button>
+      @click="translateEntireWeek('en-AU')"
+    >
+      Start-AU
+    </button>
     <button 
       class="px-2 bg-slate-400 rounded-md" 
-      @click="translateEntireWeek('JA')">Start-JA</button>
+      @click="translateEntireWeek('JA')"
+    >
+      Start-JA
+    </button>
     <button 
       class="px-2 bg-slate-400 rounded-md" 
       @click="translateEntireWeekCustom"
-    ><label for="customLang_id">Start-custom</label></button> 
-    <div style="background: pink; width: 100px"><input id="customLang_id" v-model="custom" type='text' style="width: 100%"></div>
+    >
+      <label for="customLang_id">Start-custom</label>
+    </button> 
+    <div style="background: pink; width: 100px">
+      <input
+        id="customLang_id"
+        v-model="custom"
+        type="text"
+        style="width: 100%"
+      >
+    </div>
   </section>
   <section class="w-1/2 flex flex-col">
-    <div class="w-64 inline-flex justify-between"><span>Start Timestamp:</span><span>{{startTime}}</span></div>
-    <div class="w-64 inline-flex justify-between"><span>End Timestamp:</span><span>{{endTime}}</span></div>
-    <div class="w-64 inline-flex justify-between"><span>Delta:</span><span>{{endTime - startTime}}</span></div>
+    <div class="w-64 inline-flex justify-between">
+      <span>Start Timestamp:</span><span>{{ startTime }}</span>
+    </div>
+    <div class="w-64 inline-flex justify-between">
+      <span>End Timestamp:</span><span>{{ endTime }}</span>
+    </div>
+    <div class="w-64 inline-flex justify-between">
+      <span>Delta:</span><span>{{ endTime - startTime }}</span>
+    </div>
     <hr>
     <div>
-      <article v-for="(dayShort, index) in days" :key="index">
-        <h3>{{dayShort}}</h3>
+      <article
+        v-for="(dayShort, index) in days"
+        :key="index"
+      >
+        <h3>{{ dayShort }}</h3>
       </article>
     </div>
   </section>

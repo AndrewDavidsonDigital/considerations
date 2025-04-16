@@ -25,16 +25,29 @@ onUnmounted(() => {
 </script>
   
 <template>
-  <section class="text-white text-left w-1/2 pb-5" style="background: #181818;">
-    <h2 class="text-xl text-orange-300">Issue: </h2>
-    <p class="indent-5">Can the html dialog be used for Flyouts</p>
-    <h2 class="text-xl text-orange-300">Details: </h2>
-    <p class="indent-5">Need to consider how to use the html Dialog tag, and see if its compatable with the concept of a flyout</p>
+  <section
+    class="text-white text-left w-1/2 pb-5"
+    style="background: #181818;"
+  >
+    <h2 class="text-xl text-orange-300">
+      Issue:
+    </h2>
+    <p class="indent-5">
+      Can the html dialog be used for Flyouts
+    </p>
+    <h2 class="text-xl text-orange-300">
+      Details:
+    </h2>
+    <p class="indent-5">
+      Need to consider how to use the html Dialog tag, and see if its compatable with the concept of a flyout
+    </p>
   </section>
   <section class="flex flex-col gap-y-2 text-white pb-5">
     <button
       @click="() => toggleDialog(true)"
-    >Open Modal</button>
+    >
+      Open Modal
+    </button>
     <!-- <button @click="toggleFlyoutFromRight">Open Flyout from Right</button> -->
   </section>
   <dialog 
@@ -44,11 +57,14 @@ onUnmounted(() => {
       backdrop:bg-red-500/30
       transition-all duration-1000
       h-60 aspect-square
-    ">
+    "
+  >
     <div class="flex items-center justify-center">
       <button 
         @click="() => toggleDialog(false)"
-      >Close</button>
+      >
+        Close
+      </button>
     </div>
   </dialog>
 </template>

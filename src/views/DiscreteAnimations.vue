@@ -19,16 +19,34 @@ const toggleDialog = (toOpen = false) => {
 
 <template>
   <section class="text-white text-left w-1/2 pb-5">
-    <h2 class="text-xl">Issue: </h2>
-    <p class="indent-5">How can we transition an element to removal (like a modal or tool-tip) from dom without shrinking nor off-screening nor negative z-indexing (lowering z-index bellow that of the body / main)</p>
-    <h2 class="text-xl">Details: </h2>
-    <p class="indent-5">Should be able to achieve this with new discrete transitions allowing us to transition to <Highlight content="display: none"/></p>
-    <h2 class="text-xl">Logic: </h2>
-    <p class="indent-5">Discrete animations need to define 3-points for a 2-phase transition.</p>
+    <h2 class="text-xl">
+      Issue:
+    </h2>
+    <p class="indent-5">
+      How can we transition an element to removal (like a modal or tool-tip) from dom without shrinking nor off-screening nor negative z-indexing (lowering z-index bellow that of the body / main)
+    </p>
+    <h2 class="text-xl">
+      Details:
+    </h2>
+    <p class="indent-5">
+      Should be able to achieve this with new discrete transitions allowing us to transition to <Highlight content="display: none" />
+    </p>
+    <h2 class="text-xl">
+      Logic:
+    </h2>
+    <p class="indent-5">
+      Discrete animations need to define 3-points for a 2-phase transition.
+    </p>
     <ul>
-      <ol class="list-disc list-inside list-item">Init Clearly defined <Highlight content="@starting-style{}"/></ol>
-      <ol class="list-disc list-inside list-item">Default state <Highlight content="display: none"/> or  <Highlight content="hidden"/> </ol>
-      <ol class="list-disc list-inside list-item">Final state <Highlight content="display: block"/> or  <Highlight content="block"/> </ol>
+      <ol class="list-disc list-inside list-item">
+        Init Clearly defined <Highlight content="@starting-style{}" />
+      </ol>
+      <ol class="list-disc list-inside list-item">
+        Default state <Highlight content="display: none" /> or  <Highlight content="hidden" />
+      </ol>
+      <ol class="list-disc list-inside list-item">
+        Final state <Highlight content="display: block" /> or  <Highlight content="block" />
+      </ol>
     </ul>
     <hr class="my-2">
     <p>Additionaly we need to pro-activly enbale transition support for discrete animation-types <Highlight content="transition-behavior: allow-discrete;" /> or <Highlight content="[transition-behavior:_allow-discrete]" /></p>
@@ -40,7 +58,9 @@ const toggleDialog = (toOpen = false) => {
       <button 
         class="px-4 py-2 border-red-500 border border-solid rounded"
         @click="() => toggleDialog(true)"
-      >Open Modal</button>
+      >
+        Open Modal
+      </button>
       <dialog 
         ref="modalRef"
         class="
@@ -59,9 +79,12 @@ const toggleDialog = (toOpen = false) => {
 
           [transition-behavior:_allow-discrete]
           backdrop:[transition-behavior:_allow-discrete]
-        ">
+        "
+      >
         <div class="flex flex-col justify-bewteen">
-          <button @click="toggleDialog(false)">Close</button>
+          <button @click="toggleDialog(false)">
+            Close
+          </button>
         </div>
       </dialog>
     </section>
@@ -71,25 +94,40 @@ const toggleDialog = (toOpen = false) => {
     <section class="flex flex-col relative">
       <h3>Anchor Issues</h3>
       <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
-      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover">Cant Hover me :'(</button>
-      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover">
+        Cant Hover me :'(
+      </button>
+      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 px-4 py-2 my-2 absolute peer-hover/hover:opacity-100 opacity-0 duration-300 anchored-tr">
+        Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas
+      </div>
 
       <br>
 
-      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover2">My anchor is blocking</button>
-      <div class="[position-anchor:_--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 max-w-60 px-4 py-2 my-2 absolute peer-hover/hover2:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover2">
+        My anchor is blocking
+      </button>
+      <div class="[position-anchor:_--anchor-el-2]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 max-w-60 px-4 py-2 my-2 absolute peer-hover/hover2:opacity-100 opacity-0 duration-300 anchored-tr">
+        Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas
+      </div>
     </section>
 
     <section class="flex flex-col relative">
       <h3>Anchors Fixed</h3>
       <!-- current version of tailwind will auto `var` wrap anything that starts with `--` so need to escape this with the help of whitespace escape `_--` -->
-      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover3">Yo, Hover me :D</button>
-      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 max-w-60 px-4 py-2 my-2 absolute peer-hover/hover3:opacity-100 opacity-0 duration-300 anchored-tr">Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover3">
+        Yo, Hover me :D
+      </button>
+      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 max-w-60 px-4 py-2 my-2 absolute peer-hover/hover3:opacity-100 opacity-0 duration-300 anchored-tr">
+        Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas
+      </div>
 
       <br>
 
-      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover4">My anchor could be blocking</button>
-      <div class="
+      <button class="[anchor-name:_--anchor-el-2] border-red-500 border border-solid px-4 py-2 peer/hover4">
+        My anchor could be blocking
+      </button>
+      <div
+        class="
         bg-red-500 border-red-500 rounded 
         min-h-4 min-w-60 px-4 py-2 my-2 max-w-60
         absolute hidden
@@ -98,9 +136,10 @@ const toggleDialog = (toOpen = false) => {
         [position-anchor:_--anchor-el-2]
         [transition-behavior:_allow-discrete]
         fromHiddenToBlock"
-      >Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas</div>
+      >
+        Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas
+      </div>
     </section>
-
   </section>
 </template>
 

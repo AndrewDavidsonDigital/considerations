@@ -16,9 +16,12 @@ const isMenuOpen = ref<boolean>(false);
   <nav class="relative max-h-5">
     <button 
       class="ml-auto mr-2 cursor-pointer w-fit flex gap-2 group"
-      @click="() => (isMenuOpen = !isMenuOpen)">
-      <h2 class="text-lg duration-500 text-emerald-400 group-hover:text-orange-400">Navigation ({{resolveRouteName(currentRoute.path)}})</h2>
-      <IconMenu class="transition-colors duration-500 text-emerald-400 group-hover:stroke-orange-400"/>
+      @click="() => (isMenuOpen = !isMenuOpen)"
+    >
+      <h2 class="text-lg duration-500 text-emerald-400 group-hover:text-orange-400">
+        Navigation ({{ resolveRouteName(currentRoute.path) }})
+      </h2>
+      <IconMenu class="transition-colors duration-500 text-emerald-400 group-hover:stroke-orange-400" />
     </button>
 
     <aside 
@@ -33,10 +36,28 @@ const isMenuOpen = ref<boolean>(false);
       ]"
     >
       <section class=" px-5 py-10 flex flex-col gap-y-2 overflow-hidden">
-          <template v-for="(value, index) in routes" :key="'routerKey_' + index">
-            <RouterLink v-if="value.path !== currentRoute.path" :to="value.path" class="truncate duration-500 hover:text-orange-400" @click="isMenuOpen = false" :title="value.title">{{value.title}}</RouterLink>
-            <RouterLink v-else :to="value.path" class="pointer-events-none cursor-default truncate duration-500 text-cyan-500" :title="value.title">{{value.title}}</RouterLink>
-          </template>
+        <template
+          v-for="(value, index) in routes"
+          :key="'routerKey_' + index"
+        >
+          <RouterLink
+            v-if="value.path !== currentRoute.path"
+            :to="value.path"
+            class="truncate duration-500 hover:text-orange-400"
+            :title="value.title"
+            @click="isMenuOpen = false"
+          >
+            {{ value.title }}
+          </RouterLink>
+          <RouterLink
+            v-else
+            :to="value.path"
+            class="pointer-events-none cursor-default truncate duration-500 text-cyan-500"
+            :title="value.title"
+          >
+            {{ value.title }}
+          </RouterLink>
+        </template>
       </section>
     </aside> 
   </nav>

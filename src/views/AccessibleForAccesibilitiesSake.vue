@@ -31,12 +31,24 @@
     </ul>
   </aside>
   <section class="text-white text-left w-1/2 pb-5">
-    <h2 class="text-xl">Issue: </h2>
-    <p class="indent-5">Native <Highlight content="placeholders"/> for select tags don't play nice with assistive technologies thus shouldn't be used. This is obviously <Highlight content="less accessible"/>for those NOT using such technologies (~90%+) of the users</p>
-    <h2 class="text-xl">Details: </h2>
-    <p class="indent-5">If the native html placeholder attributes cant be used then we should be able to replicate this with some non-accessible (aria-hidden) content that is ephemeral to the user</p>
-    <h2 class="text-xl">Logic: </h2>
-    <p class="indent-5">Placeholder content in itself should just be able to be a z-index'd higher element that has its opacity toggled based on a rule-set relative to the interaction of the underlying select element</p>
+    <h2 class="text-xl">
+      Issue:
+    </h2>
+    <p class="indent-5">
+      Native <Highlight content="placeholders" /> for select tags don't play nice with assistive technologies thus shouldn't be used. This is obviously <Highlight content="less accessible" />for those NOT using such technologies (~90%+) of the users
+    </p>
+    <h2 class="text-xl">
+      Details:
+    </h2>
+    <p class="indent-5">
+      If the native html placeholder attributes cant be used then we should be able to replicate this with some non-accessible (aria-hidden) content that is ephemeral to the user
+    </p>
+    <h2 class="text-xl">
+      Logic:
+    </h2>
+    <p class="indent-5">
+      Placeholder content in itself should just be able to be a z-index'd higher element that has its opacity toggled based on a rule-set relative to the interaction of the underlying select element
+    </p>
   </section>
   <section class="flex flex-col w-fit gap-y-8 justify-start h-[150%] mt-20">
     <section>
@@ -62,7 +74,9 @@
           class="w-full flex gap-2 accessibility-overrides"
           @click="() => activateModal= !activateModal"
         >
-          <p class="text-lg ">ROW TITLE</p><LoopIcon class="inline"/>
+          <p class="text-lg ">
+            ROW TITLE
+          </p><LoopIcon class="inline" />
         </button>
       </div>
       <article
