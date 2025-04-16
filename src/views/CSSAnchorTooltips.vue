@@ -67,12 +67,12 @@ function toggleHelper(){
     </button>
     <div 
       :class="[
-        &quot;bg-red-500 border-red-500 rounded&quot;,
-        &quot;min-h-4 min-w-40 px-4 py-2 my-2&quot;,
-        &quot;absolute opacity-0 duration-300&quot;,
-        &quot;[position-anchor:_--anchor-toggle-el] anchored-tl&quot;,
+        'bg-red-500 border-red-500 rounded',
+        'min-h-4 min-w-40 px-4 py-2 my-2',
+        'absolute opacity-0 duration-300',
+        '[position-anchor:_--anchor-toggle-el] anchored-tl',
         {
-          &quot;opacity-100&quot; : toggler,
+          'opacity-100' : toggler,
         }]"
     >
       zzzzzzz im going to stay asleep
@@ -98,11 +98,11 @@ function toggleHelper(){
         </button>
         <div 
           :class="[
-            &quot;bg-blue-500 border-blue-500 rounded&quot;,
-            &quot;min-h-4 min-w-40 px-4 py-2 my-2&quot;,
-            &quot;absolute opacity-0 duration-300&quot;,
-            &quot;[position-anchor:_--anchor-hover-inModal-el] anchored-tl&quot;,
-            &quot;peer-hover/hover:opacity-100 opacity-0 duration-300&quot;
+            'bg-blue-500 border-blue-500 rounded',
+            'min-h-4 min-w-40 px-4 py-2 my-2',
+            'absolute opacity-0 duration-300',
+            '[position-anchor:_--anchor-hover-inModal-el] anchored-tl',
+            'peer-hover/hover:opacity-100 opacity-0 duration-300'
           ]"
         >
           zzzzzzz im going to stay asleep
