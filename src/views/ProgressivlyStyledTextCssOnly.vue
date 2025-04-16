@@ -6,7 +6,7 @@ import Highlight from '../components/Highlight.vue';
 </script>
   
 <template>
-  <section class="text-white text-left w-1/2 pb-5">
+  <section class="text-white text-left w-[80dvw] md:w-1/2 pb-5">
     <h2 class="text-xl text-orange-300">
       Issue:
     </h2>
@@ -35,7 +35,7 @@ import Highlight from '../components/Highlight.vue';
   <section class="min-h-[30vh] flex flex-col pt-5">
     spacer to enable scroll for scroll toggling
   </section> 
-  <section class="md:w-[50vw] aspect-square flex flex-col">
+  <section class="w-[90vw] md:w-[60vw] aspect-square flex flex-col">
     <p class="text-white/20 text-3xl">
       <span class="scroll-fade">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ne amores quidem sanctos a sapiente alienos esse arbitrantur. Si longus, levis.Ut id aliis narrare gestiant? An ea, quae per vinitorem antea consequebatur, per se ipsa curabit? Quamquam te quidem video minime esse deterritum.Duo Reges: constructio interrete. Est, ut dicis, inquam. Quid enim me prohiberet Epicureum esse, si probarem, quae ille diceret? Quae quo sunt excelsiores, eo dant clariora indicia naturae. Ita cum ea volunt retinere, quae superiori sententiae conveniunt, in Aristonem incidunt; An est aliquid per se ipsum flagitiosum, etiamsi nulla comitetur infamia? At ille pellit, qui permulcet sensum voluptate. Restatis igitur vos; Tum Quintus: Est plane, Piso, ut dicis, inquit. Mihi, inquam, qui te id ipsum rogavi? Audax negotium, dicerem impudens, nisi hoc institutum postea translatum ad philosophos nostros esset. Profectus in exilium Tubulus statim nec respondere ausus; Quis Aristidem non mortuum diligit? Illa argumenta propria videamus, cur omnia sint paria peccata. Summus dolor plures dies manere non potest?</span>
     </p>
@@ -55,9 +55,18 @@ import Highlight from '../components/Highlight.vue';
     background-size: 0% 100%;
     background-image: linear-gradient(90deg, orange, orange);
     animation: scroll-reveal linear forwards;
-    animation-timeline: view();
-    animation-range-start: cover;
-    animation-range-end: cover 80vh;
+    
+    @media (width >= 768px ) {
+      animation-timeline: view();
+      animation-range-start: cover;
+      animation-range-end: cover 95vh;
+    }
+    
+    @media (width < 768px ) {
+      animation-timeline: view();
+      animation-range-start: cover;
+      animation-range-end: cover 100%;
+    }
   }
 
   @keyframes scroll-reveal {
@@ -65,4 +74,5 @@ import Highlight from '../components/Highlight.vue';
       background-size: 100% 100%;
     }
   }
+
 </style>

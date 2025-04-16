@@ -62,7 +62,7 @@
 </script>
 
 <template>
-  <section class="text-white text-left w-1/2 pb-5">
+  <section class="text-white text-left w-[80dvw] md:w-1/2 pb-5">
     <h2 class="text-xl">
       Issue:
     </h2>
@@ -90,7 +90,7 @@
       </ul>
     </div>
   </section>
-  <section class="flex flex-col w-fit gap-y-4 pb-10">
+  <section class="flex flex-col w-fit gap-y-4 pb-10 px-5">
     <article class="overflow-hidden max-w-[0px]">
       <div
         ref="charScoping"

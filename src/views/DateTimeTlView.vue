@@ -85,7 +85,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="text-white text-left w-1/2 pb-5">
+  <section class="text-white text-left w-[80dvw] md:w-1/2 pb-5">
     <h2 class="text-xl">
       Issue:
     </h2>
@@ -102,10 +102,10 @@ onMounted(() => {
       Logic:
     </h2>
     <p class="indent-5">
-      Code takes a list of String represenations of `Day of the week`, i.e.: Monday, and needs to resolve the intl, short name for these, relative to a given locale.<pre class="indent-0 p-3 rounded-md bg-orange-300 text-black italic"><code lang="js">DAYNAME_CONSTS.friday.toLocaleString(locale, { 'weekday': 'short' })</code></pre> From this we can see that resolving results for 8 entities takes between 0 and 1ms, this is clearly not slow. As Just iterating over the loop can be seen to take between 0 and 1ms, but on average closer to 0
+      Code takes a list of String represenations of `Day of the week`, i.e.: Monday, and needs to resolve the intl, short name for these, relative to a given locale.<pre class="indent-0 p-3 rounded-md bg-orange-300 text-black italic"><code lang="js" class="break-words text-wrap">DAYNAME_CONSTS.friday.toLocaleString(locale, { 'weekday': 'short' })</code></pre> From this we can see that resolving results for 8 entities takes between 0 and 1ms, this is clearly not slow. As Just iterating over the loop can be seen to take between 0 and 1ms, but on average closer to 0
     </p>
   </section>
-  <section class="flex gap-x-2 text-black pb-5">
+  <section class="flex flex-wrap gap-2 text-black pb-5 px-5">
     <button
       class="px-2 bg-slate-400 rounded-md" 
       @click="justIterateLoop"

@@ -40,7 +40,7 @@ function changeImage(){
 </script>
 
 <template>
-  <section class="text-white text-left w-1/2 pb-5">
+  <section class="text-white text-left w-[80dvw] md:w-1/2 pb-5">
     <h2 class="text-xl">
       Problem:
     </h2>
@@ -82,7 +82,7 @@ function changeImage(){
     <image 
       id="ithra" 
       src="/airship.jpg" 
-      class="aspect-video gradients z-10"
+      class="aspect-video gradients z-10 max-w-[80vw]"
     />
   </section>
 </template>

@@ -25,7 +25,7 @@ function toggleHelper(){
 </script>
 
 <template>
-  <section class="text-white text-left w-1/2 pb-5">
+  <section class="text-white text-left w-[80dvw] md:w-1/2 pb-5">
     <h2 class="text-xl">
       Issue:
     </h2>

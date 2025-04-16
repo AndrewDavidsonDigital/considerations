@@ -17,7 +17,7 @@
 </script>
 
 <template>
-  <section class="text-white text-left w-1/2 pb-5">
+  <section class="text-white text-left w-[80dvw] md:w-1/2 pb-5">
     <h2 class="text-xl">
       Issue:
     </h2>
@@ -37,7 +37,7 @@
       Placeholder content in itself should just be able to be a z-index'd higher element that has its opacity toggled based on a rule-set relative to the interaction of the underlying select element
     </p>
   </section>
-  <section class="flex flex-col w-fit gap-y-8 justify-start h-[150%] mt-20">
+  <section class="flex flex-col w-fit gap-y-8 justify-start h-[150%] mt-20 px-5">
     <article>
       <p><label for="nativeSelect_id">Native Select (doesn't support placeholders)</label></p>
       <select
