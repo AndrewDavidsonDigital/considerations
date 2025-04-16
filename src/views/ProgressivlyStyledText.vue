@@ -171,7 +171,7 @@ import {
     return retval
   }
 
-  function observerCallback(entries: IntersectionObserverEntry[], observer: IntersectionObserver){
+  function observerCallback(entries: IntersectionObserverEntry[], _observer: IntersectionObserver){
     if (isLoadedFull.value){
       if (entries[0].isIntersecting){
         scrollConfig.value.startTimestamp = Date.now()
@@ -225,7 +225,7 @@ import {
    * Remove and Re-innit ScollToggle 
    * from button press
    */
-  watch(scrollToggled, (newVal, oldVal) => {
+  watch(scrollToggled, (newVal) => {
     if(observer.value){
       if (newVal === true){
         clearTickerInterval()
@@ -244,7 +244,7 @@ import {
    * Remove and Re-innit TimeToggle
    * from button press 
    */
-  watch(timeToggled, (newVal, oldVal) => {
+  watch(timeToggled, (newVal) => {
     if (newVal === true){
       clearTickerInterval()
       timeConfig.value.startTimestamp = Date.now()
@@ -313,18 +313,26 @@ import {
         :class="{
           'border-red-400': scrollToggled,
           'border-slate-400': !scrollToggled,
-          }" 
+        }" 
         @click="timeToggled = false; scrollToggled = true">Scroll Toggled</button>
       <button 
         class="px-2 bg-slate-400  rounded-md border-2"
         :class="{
           'border-red-400': timeToggled,
           'border-slate-400': !timeToggled,
-          }" 
+        }" 
         @click="timeToggled = true; scrollToggled = false">Timer Toggled</button>
     </article>
     <article class="flex gap-x-2 justify-around">
-      <div class="w-1/3 inline-flex text-white">FPS: <input v-model="fps" type='text' class="ml-2 pl-2 text-black" style="width: 100%"></div>
+      <div class="w-1/3 inline-flex text-white">
+        <label for="fpsId">FPS: </label>
+        <input 
+          id="fpsId" 
+          v-model="fps" 
+          type="text"
+          class="ml-2 pl-2 text-black" 
+          style="width: 100%"
+        ></div>
       <div class="w-1/3 inline-flex text-white">Interval: <span class="ml-2 pl-2 text-black min-w-[4rem] bg-white">{{interval}}</span></div>
     </article>
   </section>

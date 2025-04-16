@@ -105,8 +105,9 @@ onMounted(() => {
       @click="translateEntireWeek('JA')">Start-JA</button>
     <button 
       class="px-2 bg-slate-400 rounded-md" 
-      @click="translateEntireWeekCustom">Start-custom</button> 
-    <div style="background: pink; width: 100px"><input v-model="custom" type='text' style="width: 100%"></div>
+      @click="translateEntireWeekCustom"
+    ><label for="customLang_id">Start-custom</label></button> 
+    <div style="background: pink; width: 100px"><input id="customLang_id" v-model="custom" type='text' style="width: 100%"></div>
   </section>
   <section class="w-1/2 flex flex-col">
     <div class="w-64 inline-flex justify-between"><span>Start Timestamp:</span><span>{{startTime}}</span></div>

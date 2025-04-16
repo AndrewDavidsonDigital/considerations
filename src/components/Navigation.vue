@@ -14,12 +14,12 @@ const isMenuOpen = ref<boolean>(false);
 
 <template>
   <nav class="relative max-h-5">
-    <div 
+    <button 
       class="ml-auto mr-2 cursor-pointer w-fit flex gap-2 group"
       @click="() => (isMenuOpen = !isMenuOpen)">
       <h2 class="text-lg duration-500 text-emerald-400 group-hover:text-orange-400">Navigation ({{resolveRouteName(currentRoute.path)}})</h2>
       <IconMenu class="transition-colors duration-500 text-emerald-400 group-hover:stroke-orange-400"/>
-    </div>
+    </button>
 
     <aside 
       :class="[

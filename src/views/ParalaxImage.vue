@@ -28,7 +28,7 @@ import { onMounted, computed, ref } from 'vue'
     startTimestamp: -1,
   })
 
-  const interval = computed(() => (1000 / fps.value).toFixed(2));
+  const _interval = computed(() => (1000 / fps.value).toFixed(2));
 
 
   function resolveMaxHeight(config: IAdConfig){
@@ -63,7 +63,7 @@ import { onMounted, computed, ref } from 'vue'
     }
   })
 
-  function observerCallback(entries: IntersectionObserverEntry[], observer: IntersectionObserver){
+  function observerCallback(entries: IntersectionObserverEntry[], _observer: IntersectionObserver){
     if (entries[0].isIntersecting){
       console.log('entering: ')
       scrollConfig.value.startTimestamp = Date.now()

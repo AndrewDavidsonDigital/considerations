@@ -50,6 +50,9 @@ p,li,figcaption {
   animation-duration: var(--animate-duration) !important;
 }
 
+.bg-default{
+  background-color: #181818;
+}
 
 /**********/
 

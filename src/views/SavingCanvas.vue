@@ -4,6 +4,7 @@
     ref,
     onMounted,
     computed,
+    onUnmounted,
   } from 'vue'
   import { useDeviceStore } from "@/stores/device";
   import { dataURItoBlob } from "@/util/image";
@@ -82,7 +83,12 @@
     linkRef.value.href = '';
   }
 
+  onUnmounted(() => {
+    document.body.classList.remove("bg-default");
+  });
+
   onMounted(() => {
+    document.body.classList.add("bg-default");
     const ctx = canvasRef.value?.getContext("2d");
     console.log(ctx);
     if (!ctx) {
@@ -100,7 +106,7 @@
 </script>
   
 <template>
-  <section ref="htmlToCanvasRef" id="htmlToCanvasRef" class="text-white text-left w-1/2 pb-5" style="background: #181818;">
+  <section ref="htmlToCanvasRef" id="htmlToCanvasRef" class="text-white text-left w-1/2 pb-5 bg-default">
     <h3 class="text-lg text-orange-300-rgba">NOTE: </h3>
     <p class="indent-5">HTML2Canvas doesn't support `oklch` colour space</p>
     <h2 class="text-xl text-orange-300-rgba">Issue: </h2>
@@ -113,7 +119,7 @@
     <h3 class="text-lg text-orange-300-rgba">Download: </h3>
     <p class="indent-5 word-break">Turn the canvas element into a DataURL (`data:image/png;base64,iVBORw0KGgoAAAANSUhEU...`) and then push said DataURL as the HREF of an anchor, click anchor, then clear anchor HREF</p>
     <br>  
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-lime-500-rgba"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#7ccf00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-lime-500-rgba"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
   </section>
   <section class="flex flex-col gap-y-2 text-white pb-5">
     <article class="flex gap-x-2 justify-around">
@@ -154,7 +160,7 @@
         type="button"
         @click="saveAndDownload(true)">Download - Converted</button>
     </article>
-    <a ref="linkRef" download="download.png" class="hidden"></a>
+    <a ref="linkRef" download="download.png" class="hidden" aria-hidden="true">_</a>
   </section>  
   <section class="md:w-[50vw] aspect-square flex flex-col mix-blend-lighten">
     <article class="flex justify-around items-center">
@@ -170,7 +176,7 @@
     </article>
     <article ref="canvasDomDestinationRef" class="flex gap-x-2 justify-around items-center">
       <canvas ref="canvasRef"></canvas>
-    </article>  
+    </article>
   </section>
 </template>
 
