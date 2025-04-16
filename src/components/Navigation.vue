@@ -37,23 +37,17 @@ const isMenuOpen = ref<boolean>(false);
     >
       <section class=" px-5 py-10 flex flex-col gap-y-2 overflow-hidden">
         <template
-          v-for="(value, index) in routes"
-          :key="'routerKey_' + index"
+          v-for="(value, _index) in routes"
+          :key="'routerKey_' + _index"
         >
           <RouterLink
-            v-if="value.path !== currentRoute.path"
             :to="value.path"
             class="truncate duration-500 hover:text-orange-400"
+            :class="[
+              { 'pointer-events-none cursor-default truncate !text-cyan-500' : value.path === currentRoute.path},
+            ]"
             :title="value.title"
             @click="isMenuOpen = false"
-          >
-            {{ value.title }}
-          </RouterLink>
-          <RouterLink
-            v-else
-            :to="value.path"
-            class="pointer-events-none cursor-default truncate duration-500 text-cyan-500"
-            :title="value.title"
           >
             {{ value.title }}
           </RouterLink>
