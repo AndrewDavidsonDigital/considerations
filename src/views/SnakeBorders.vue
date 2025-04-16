@@ -47,7 +47,7 @@
       >
         <div 
           class="
-            p-10 
+            p-[5vw] md:p-10 
             -m-0.5
             rounded-md
             flex flex-col gap-4
@@ -222,6 +222,18 @@
     aspect-ratio: 16/9;
     content: '';
     z-index: -1;
+
+    /* 
+     * note: webkit mobile (chrome ios) doesn't have these defined for 
+     * the pseudos: before and after
+     */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+
   }
   
   .particle-blurs::before{
@@ -231,8 +243,6 @@
     left: calc(var(--spacing) * -12);
   }
   .particle-blurs::after {
-    /* background: radial-gradient(oklch(27.9% 0.041 260.031 / 0.3)); */
-    /* var(--color-slate-900) */
     background: radial-gradient(oklch(20.8% 0.042 265.755 / 0.6));
     height: calc(var(--spacing) * 24);
     bottom: calc(var(--spacing) * -12);
