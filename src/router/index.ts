@@ -14,6 +14,7 @@ import OddTruncations from '../views/OddTruncations.vue'
 import AccessibleSelectPlaceholders from '../views/AccessibleSelectPlaceholders.vue'
 import AccessibleForAccesibilitiesSake from '@/views/AccessibleForAccesibilitiesSake.vue'
 import SnakeBorders from '@/views/SnakeBorders.vue'
+import ConditionalTypedProps from '@/views/ConditionalTypedProps.vue'
 
 export const routes = [
   {
@@ -104,6 +105,12 @@ export const routes = [
     name: 'snake-border',
     title: "Snake gradient Borders",
     component: SnakeBorders,
+  },
+  {
+    path: '/conditional-props',
+    name: 'conditional-props',
+    title: "Conditional Props",
+    component: ConditionalTypedProps,
   },
 ];
 
