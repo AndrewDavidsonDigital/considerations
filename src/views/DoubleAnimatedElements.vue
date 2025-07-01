@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import Highlight from '@/components/Highlight.vue';
+  import { CogIcon } from '@/assets/icons';
+import Highlight from '@/components/Highlight.vue';
 import { ref } from 'vue';
 
   const ANIMATION_STEP_LIMIT = 4;
@@ -126,7 +127,15 @@ import { ref } from 'vue';
                 { 'animation-reverse' : index % 2 === 1 },
               ]"
             >
-              {{ [5,6,7].includes(index) ? 'MOVE' : 'CELL' }}
+              <template v-if="[5,6,7].includes(index)">
+                MOVE
+              </template>
+              <template v-else>
+                <CogIcon
+                  class="animate-spin scale-[calc(var(--cell-size-in-rem)/4)] duration-200"
+                  :style="`--cell-size-in-rem:${cellSize};`"
+                />
+              </template>
             </div>
           </article>
         </template>
