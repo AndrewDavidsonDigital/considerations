@@ -1,8 +1,42 @@
 <script setup lang="ts">
+  import Highlight from '@/components/Highlight.vue';
 import { ref } from 'vue';
 
+  const ANIMATION_STEP_LIMIT = 4;
+  const ANIMATION_INTERVAL = 500;
 
-const animated = ref(false);
+  const animated = ref(false);
+  const animatedStep = ref(0);
+  const timerId = ref(-1);
+
+  const cellSize = ref(4);
+
+  function handleTransition(){
+    animated.value = true
+    if (timerId.value > 0){
+      return;
+    }
+    timerId.value = setInterval(
+      () => {
+        timer();
+      },
+      ANIMATION_INTERVAL,
+    ) as unknown as number;
+  }
+
+  function timer(){
+    // do stuff
+    animatedStep.value++;
+
+    // if animatedStep.value++ >= ANIMATION_STEP_LIMIT then stop
+    
+    if (animatedStep.value >= ANIMATION_STEP_LIMIT){
+      console.log(`clearing timer: ${timerId.value}`);
+      clearInterval(timerId.value);
+      timerId.value = -1;
+      animatedStep.value = 0;
+    }
+  }
 
 </script>
 
@@ -18,13 +52,15 @@ const animated = ref(false);
       Example of expected behavior:
     </h2>
     <p class="indent-5">
-      TBD.
+      The cells inner content should be able to animate, i.e. rotate, and then the cell itself move as defined by a custom move-set.
     </p>
     <h2 class="text-xl">
       Logic:
     </h2>
     <p class="indent-5">
-      TBD.
+      Inner elements have no issue being animated via keyframes, but given the nature of the parent cell, needing to do move pause move pause flow, 
+      without using position absolute and manipulating both <Highlight content='top' />  /  <Highlight content='left' />, we are left with chain transitioning based on manual setting this as 
+      <Highlight content='transition-translate' /> doesn't seem to work if we animated the transition variable.
     </p>
   </section>
   <section class="flex flex-col gap-y-8 justify-start h-[150%] mt-20 w-full px-5">
@@ -34,37 +70,63 @@ const animated = ref(false);
         max-w-[1000px] mx-auto
       "
     >  
-      <section class="flex flex-col gap-y-2 text-white pb-5">
+      <section class="flex flex-col gap-y-2 text-white pb-5 items-center">
         <button
-          @click="animated = !animated"
+          class="border rounded-xl border-emerald-600 size-fit px-2 py-1"
+          @click="handleTransition"
         >
-          Toggle Transition
+          Start Transition
         </button>
+        <p class="flex flex-col text-emerald-600">
+          {{ animatedStep !== 0 ? `Step [${animatedStep}/${ANIMATION_STEP_LIMIT}]` : `Not Running`}}
+        </p>
+        <input
+          v-model="cellSize"
+          type="range"
+          min="3"
+          max="9"
+          aria-hidden
+        />
+        <p class="flex flex-col text-emerald-600 ">
+          Size: {{ cellSize }}rem
+        </p>
       </section>
-      <section class="grid grid-cols-3 p-2 bg-slate-600">
+      <section 
+        class="grid grid-cols-3 p-2 bg-slate-600" 
+        :style="`--cell-size:${cellSize}rem;`"
+      >
         <template 
           v-for="index in 7"
           :key="`cell_${index}`"
         >
           <article
-            class="aspect-square bg-red-500 size-[4rem] duration-500"
+            class="aspect-square bg-red-500 size-[var(--cell-size)] duration-500 grid items-center justify-center"
             :style="`filter: hue-rotate(${45*index}deg);`"
             :class="[
-              // { 'animate-move-cell ' : animated && index === 6 },
-              { 'translate-y-[4rem] ' : animated && index === 6 },
+              { 'opacity-0' : [4,2].includes(index) }, // hidden cells
+
+              // transition flow-A
+              { 'translate-y-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 1},
+              { 'translate-y-[var(--cell-size)] -translate-x-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 2},
+              { 'translate-y-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 3},
+
+              // transition flow-B
+              { '-translate-y-[var(--cell-size)] ' : animated && index === 7 && animatedStep === 1},
+              { '-translate-y-[calc(var(--cell-size)*2)] ' : animated && index === 7 && animatedStep === 2},
+              { '-translate-y-[var(--cell-size)] ' : animated && index === 7 && animatedStep === 3},
+
+              // transition flow-C
+              { 'translate-x-[var(--cell-size)] ' : animated && index === 5 && animatedStep === 1},
+              { '-translate-x-[var(--cell-size)] ' : animated && index === 5 && animatedStep === 2},
             ]"
           >
             <div 
-              v-if="index === 6"
-              class="size-fit mx-auto my-4 animate-spin animation-duration-3000"
+              class="size-fit animate-spin animation-duration-3000"
+              :class="[
+                { 'animation-reverse' : index % 2 === 1 },
+              ]"
             >
-              MOVE
-            </div>
-            <div 
-              v-else
-              class="size-fit mx-auto my-4 animate-spin animation-duration-3000"
-            >
-              CELL
+              {{ [5,6,7].includes(index) ? 'MOVE' : 'CELL' }}
             </div>
           </article>
         </template>
@@ -74,35 +136,41 @@ const animated = ref(false);
 </template>
 <style lang="css" scoped>
 
-  /* * {
-    --cell-delta: 4rem ;
-    --tw-translate-x: var(--cell-delta);
-    --tw-translate-y: var(--cell-delta);
-  } */
-
   .animate-move-cell {
-    animation: move-cell 3.5s linear infinite;
+    --cell-delta: 4rem ;
+    --tw-translate-x: var(0);
+    --tw-translate-y: var(0);
+    animation: move-cell 10s linear infinite;
     translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
+    @apply transition-discrete;
   }
 
   @keyframes move-cell {
     0%,100% {
-      --tw-translate-y: var(--cell-delta);
+      translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
+      --tw-translate-x: var(0);
+      --tw-translate-y: var(0);
     }
     10%, 90% {
+      translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
+      --tw-translate-x: var(0);
+      --tw-translate-y: var(0);
+    }
+    20%, 80% {
+      translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
       --tw-translate-y: var(--cell-delta);
     }
-    /* 20%, 80% {
-      opacity: 0.7;
-    }
     30%, 70% {
-      opacity: 0.7;
-    } */
+      translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
+      --tw-translate-y: var(--cell-delta);
+    }
     40%, 60% {
+      translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
       --tw-translate-x: var(--cell-delta);
       --tw-translate-y: var(--cell-delta);
     }
     50% {
+      translate: var(--tw-translate-x, 0) var(--tw-translate-y, 0);
       --tw-translate-x: var(--cell-delta);
       --tw-translate-y: var(--cell-delta);
     }

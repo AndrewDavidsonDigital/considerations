@@ -78,6 +78,9 @@ button {
 .animation-duration-300 {
   --animate-duration: 30ms;
 }
+.animation-reverse {
+  animation-direction: reverse;
+}
 
 .animation-pause {
   animation-play-state: paused;
