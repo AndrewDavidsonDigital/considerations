@@ -15,6 +15,7 @@ import AccessibleSelectPlaceholders from '../views/AccessibleSelectPlaceholders.
 import AccessibleForAccesibilitiesSake from '@/views/AccessibleForAccesibilitiesSake.vue'
 import SnakeBorders from '@/views/SnakeBorders.vue'
 import ConditionalTypedProps from '@/views/ConditionalTypedProps.vue'
+import DoubleAnimatedElements from '@/views/DoubleAnimatedElements.vue'
 
 export const routes = [
   {
@@ -111,6 +112,12 @@ export const routes = [
     name: 'conditional-props',
     title: "Conditional Props",
     component: ConditionalTypedProps,
+  },
+  {
+    path: '/doubly-animated-elements',
+    name: 'doubly-animated-elements',
+    title: "Doubly Animated Elements",
+    component: DoubleAnimatedElements,
   },
 ];
 
