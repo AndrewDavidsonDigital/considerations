@@ -35,6 +35,7 @@ import { ref } from 'vue';
       console.log(`clearing timer: ${timerId.value}`);
       clearInterval(timerId.value);
       timerId.value = -1;
+      // console.log('restating loop');
       animatedStep.value = 0;
     }
   }
@@ -89,36 +90,46 @@ import { ref } from 'vue';
           aria-hidden
         />
         <p class="flex flex-col text-emerald-600 ">
-          Size: {{ cellSize }}rem
+          Size: {{ cellSize }} tw-entity
         </p>
       </section>
       <section 
-        class="grid grid-cols-3 p-2 bg-slate-600" 
+        class="grid grid-cols-3 p-2 bg-slate-600 " 
         :style="`--cell-size:${cellSize}rem;`"
       >
         <template 
-          v-for="index in 7"
+          v-for="index in 9"
           :key="`cell_${index}`"
         >
           <article
             class="aspect-square bg-red-500 size-[var(--cell-size)] duration-500 grid items-center justify-center"
             :style="`filter: hue-rotate(${45*index}deg);`"
             :class="[
-              { 'opacity-0' : [4,2].includes(index) }, // hidden cells
+              { 'opacity-0' : [2,4,8,9].includes(index) }, // hidden cells
 
               // transition flow-A
-              { 'translate-y-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 1},
-              { 'translate-y-[var(--cell-size)] -translate-x-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 2},
-              { 'translate-y-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 3},
+              { 'translate-x-[var(--cell-size)] ' : animated && index === 1 && animatedStep === 1},
+              { 'translate-y-[var(--cell-size)] translate-x-[var(--cell-size)] ' : animated && index === 1 && animatedStep === 2},
+              { 'translate-x-[var(--cell-size)] ' : animated && index === 1 && animatedStep === 3},
 
               // transition flow-B
-              { '-translate-y-[var(--cell-size)] ' : animated && index === 7 && animatedStep === 1},
-              { '-translate-y-[calc(var(--cell-size)*2)] ' : animated && index === 7 && animatedStep === 2},
-              { '-translate-y-[var(--cell-size)] ' : animated && index === 7 && animatedStep === 3},
+              { 'translate-y-[var(--cell-size)] ' : animated && index === 3 && animatedStep === 1},
+              { 'translate-y-[var(--cell-size)] ' : animated && index === 3 && animatedStep === 3},
 
               // transition flow-C
               { 'translate-x-[var(--cell-size)] ' : animated && index === 5 && animatedStep === 1},
               { '-translate-x-[var(--cell-size)] ' : animated && index === 5 && animatedStep === 2},
+
+              // transition flow-D
+              { 'translate-y-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 1},
+              { 'translate-y-[var(--cell-size)] -translate-x-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 2},
+              { 'translate-y-[var(--cell-size)] ' : animated && index === 6 && animatedStep === 3},
+
+              // transition flow-E
+              { '-translate-y-[var(--cell-size)] ' : animated && index === 7 && animatedStep === 1},
+              { '-translate-y-[calc(var(--cell-size)*2)] ' : animated && index === 7 && animatedStep === 2},
+              { '-translate-y-[var(--cell-size)] ' : animated && index === 7 && animatedStep === 3},
+
             ]"
           >
             <div 
