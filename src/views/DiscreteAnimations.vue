@@ -117,7 +117,18 @@ const toggleDialog = (toOpen = false) => {
       <button class="[anchor-name:_--anchor-el] border-red-500 border border-solid px-4 py-2 peer/hover3">
         Yo, Hover me :D
       </button>
-      <div class="[position-anchor:_--anchor-el]  bg-red-500 border-red-500 rounded min-h-4 min-w-60 max-w-60 px-4 py-2 my-2 absolute peer-hover/hover3:opacity-100 opacity-0 duration-300 anchored-tr">
+      <div 
+        class="
+          [position-anchor:_--anchor-el]
+          bg-red-500 border-red-500 
+          rounded
+          min-h-4 min-w-60 max-w-60 
+          px-4 py-2 my-2 
+          absolute 
+          peer-hover/hover3:opacity-100 opacity-0 
+          duration-1000 anchored-tr
+        "
+      >
         Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas
       </div>
 
@@ -128,14 +139,15 @@ const toggleDialog = (toOpen = false) => {
       </button>
       <div
         class="
-        bg-red-500 border-red-500 rounded 
-        min-h-4 min-w-60 px-4 py-2 my-2 max-w-60
-        absolute hidden
-        peer-hover/hover4:opacity-100 peer-hover/hover4:block
-        opacity-0 duration-300 anchored-tr 
-        [position-anchor:_--anchor-el-2]
-        [transition-behavior:_allow-discrete]
-        fromHiddenToBlock"
+          bg-red-500 border-red-500 rounded 
+          min-h-4 min-w-60 px-4 py-2 my-2 max-w-60
+          absolute hidden
+          peer-hover/hover4:opacity-100 peer-hover/hover4:block
+          opacity-0 duration-1000 anchored-tr 
+          [position-anchor:_--anchor-el-2]
+          [transition-behavior:_allow-discrete]
+          fromHiddenToBlock
+        "
       >
         Thing to be anchored lanksldnkajsbdkjasbjkdasbkjdbas
       </div>

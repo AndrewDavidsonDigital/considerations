@@ -76,7 +76,7 @@ button {
   --animate-duration: 3s;
 }
 .animation-duration-300 {
-  --animate-duration: 30ms;
+  --animate-duration: 300ms;
 }
 .animation-reverse {
   animation-direction: reverse;
