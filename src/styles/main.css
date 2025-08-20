@@ -47,7 +47,7 @@ p,li,figcaption {
 
 *{
   --animate-duration: 1s;
-  animation-duration: var(--animate-duration) !important;
+  animation-duration: var(--animate-duration, 1s);
 }
 
 .bg-default{

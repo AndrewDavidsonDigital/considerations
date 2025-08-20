@@ -12,12 +12,14 @@
 
   @apply border border-green-300/50;
 
+
   & .multiselect__option--selected{
     @apply italic opacity-50;
   }
 
   & .multiselect__content-wrapper{
     @apply px-2;
+    --animate-duration: 10ms;
   }
 
   & .multiselect__tags-wrap {
