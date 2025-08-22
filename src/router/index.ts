@@ -16,6 +16,7 @@ import AccessibleForAccesibilitiesSake from '@/views/AccessibleForAccesibilities
 import SnakeBorders from '@/views/SnakeBorders.vue'
 import ConditionalTypedProps from '@/views/ConditionalTypedProps.vue'
 import DoubleAnimatedElements from '@/views/DoubleAnimatedElements.vue'
+import AnchorNavTricks from '@/views/AnchorNavTricks.vue'
 
 export const routes = [
   {
@@ -118,6 +119,12 @@ export const routes = [
     name: 'doubly-animated-elements',
     title: "Doubly Animated Elements",
     component: DoubleAnimatedElements,
+  },
+  {
+    path: '/anchor-nav-tricks',
+    name: 'anchor-nav-tricks',
+    title: "Anchor Nav Tricks",
+    component: AnchorNavTricks,
   },
 ];
 
