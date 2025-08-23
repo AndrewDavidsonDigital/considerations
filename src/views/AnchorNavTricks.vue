@@ -47,7 +47,7 @@
     <h2 class="text-xl">
       Tags:
     </h2>
-    <div class="flex gap-2">
+    <div class="flex gap-2 flex-wrap">
       <Pill 
         v-for="tag,index in tagList" 
         :key="`tag_${index}`" 
@@ -79,7 +79,7 @@
       <a 
         v-for="item, index in navItems"
         :key="`nav_el_${index}`"
-        class="px-6 py-4 bg-unset hover:!text-black"
+        class="px-6 py-4 bg-unset hover:!text-black focus:!text-black"
         :href="item.destination"
         :target="item.isExternal ? '_blank' : 'none'"
         @click.stop.prevent
@@ -95,7 +95,7 @@
 
   @supports not (anchor-name: none){
     .hover-wrapper > a {
-      @apply hover:!bg-emerald-500;
+      @apply hover:!bg-emerald-500 focus-visible:!bg-emerald-500;
     }
   }
 
@@ -108,6 +108,7 @@
       anchor-name: --anchor-name;
       @apply isolate;
 
+      &>a:focus-visible,
       &>a:hover {
         anchor-name: --anchor-name;
       }
@@ -134,6 +135,7 @@
         transition: 500ms;
       }
       
+      &:has(a:focus-visible)::after, 
       &:has(a:hover)::after {
         left: calc(anchor(left) + 6px);
         right: calc(anchor(right) + 6px);
